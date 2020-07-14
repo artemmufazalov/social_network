@@ -1,0 +1,42 @@
+.message {
+    padding: 5px;
+    margin-bottom: 5px;
+    border: lightblue 1px solid;
+    display: inline-grid;
+    grid-template-areas:
+            "messageProps"
+            "messageText";
+}
+.messageProps{
+    grid-area: messageProps;
+}
+.messageText {
+    grid-area: messageText;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
+
+.messageTime {
+    text-align: left;
+    font-size: 12px;
+    color: gray;
+}
+
+.messageSender {
+    text-align: left;
+    font-size: 12px;
+    width: max-content;
+    margin-right: 8px;
+    color: gray;
+}
+.toMeMessage {
+    padding: 3px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.fromMeMessage {
+    padding: 5px;
+    margin-bottom: 5px;
+    text-align: right;
+}

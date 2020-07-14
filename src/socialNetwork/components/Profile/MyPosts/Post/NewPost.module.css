@@ -1,0 +1,50 @@
+.newPostBody {
+    display: grid;
+    grid-template-areas:
+    "logo text"
+    "footer footer";
+    grid-template-rows: 1fr 20px;
+    grid-template-columns: 50px 1fr;
+    background-color: white;
+    padding: 10px 5px 20px 10px;
+    margin-right: 20px;
+}
+
+.logo {
+    grid-area: logo;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+
+.textArea {
+    grid-area: text;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.inputArea {
+    width: 100%;
+    height: 40px;
+    resize: none;
+    border: lightblue .5px solid;
+}
+.inputArea:hover{
+    border: cadetblue 1px solid;
+}
+.footer {
+    grid-area: footer;
+    text-align: right;
+}
+
+.postButton {
+    margin-right: 20px;
+}
+.header{
+    color: black;
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

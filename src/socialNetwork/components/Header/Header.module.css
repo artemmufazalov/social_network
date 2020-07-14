@@ -1,0 +1,8 @@
+.headerClass{
+    background-color: blue;
+    grid-area: header;
+}
+.logo {
+    height: 100%;
+    margin-left: 0px;
+}

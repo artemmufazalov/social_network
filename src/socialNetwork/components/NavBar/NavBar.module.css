@@ -1,0 +1,19 @@
+.navBar {
+    background-color: aliceblue;
+    grid-area: sideBar;
+    border-right: lightblue 1px solid;
+}
+.item {
+    text-align: left;
+    padding: 3px 3px 3px 10px;
+}
+.item a{
+    text-decoration: none;
+    color: darkblue;
+}
+.item a:hover{
+    color: gold;
+}
+.item a.active{
+    color: darkred;
+}

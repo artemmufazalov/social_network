@@ -1,0 +1,20 @@
+.app-wrapper {
+    margin: 0 auto;
+    width: 90%;
+    display: grid;
+    grid-template-areas:
+    "header header"
+    "sideBar content"
+    "footer footer";
+    grid-template-rows: 60px 1fr 60px;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 10px;
+    background-color: aliceblue;
+    min-height: 100vh;
+}
+.content{
+    grid-area: content;
+}
+
+
+

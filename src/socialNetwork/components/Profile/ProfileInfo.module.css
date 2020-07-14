@@ -1,0 +1,55 @@
+.imageContainer {
+    margin-right: 20px;
+}
+
+.pageMainImage {
+    width: 100%;
+}
+.profileContainer {
+    display: grid;
+    grid-template-areas:
+    "profileLogo profileInfo";
+    grid-template-columns: 2fr 10fr;
+    background-color: white;
+    grid-gap: 10px;
+    margin-right: 20px;
+    margin-top: 15px;
+}
+
+.profileLogo {
+    grid-area: profileLogo;
+    width: 90%;
+    padding: 10px;
+    /*
+    background-color: aquamarine;
+    */
+}
+
+.profileInfo {
+    grid-area: profileInfo;
+    /*
+    background-color: blue;
+    */
+    text-align: left;
+    padding: 5px;
+    display: grid;
+    grid-template-areas:
+    "props values";
+    grid-template-columns: max-content auto;
+    grid-gap: 5px;
+    background-color: white;
+}
+
+.infoItem {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.props {
+    grid-area: props;
+    margin-left: 15px;
+}
+
+.values {
+    grid-area: values;
+}
