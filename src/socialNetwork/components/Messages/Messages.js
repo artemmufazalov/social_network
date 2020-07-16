@@ -1,8 +1,8 @@
 import React from "react";
 import s from "./Messages.module.css";
-import Message, {MessagesParser} from "./Message";
+import {MessagesParser} from "./Message";
 import DialogItem from "./Dialog";
-import {sendNewMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/state";
+import {sendNewMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/messagesReducer";
 
 const Messages = (props) => {
 
@@ -20,19 +20,19 @@ const Messages = (props) => {
     return (
         <div className={s.mainContainer}>
             <div className={s.dialogsContainer}>
-                {props.state.dialogsData.map(data => (<DialogItem name={data.name} id={data.id}/>))}
+                {props.state.messagesPage.dialogsData.map(data => (<DialogItem name={data.name} id={data.id}/>))}
             </div>
 
             <div className={s.messagesMainContainer}>
                 <div className={s.messagesContainer}>
-                    {props.state.dialogsData[0].messages.map(m => <MessagesParser message={m}/>)}
+                    {props.state.messagesPage.dialogsData[0].messages.map(m => <MessagesParser message={m}/>)}
                 </div>
 
 
                 <div className={s.newMessageBox}>
                     <div className={s.newMessageTextArea}>
                         <textarea rows="5"
-                                  value={props.state.newMessageData.text}
+                                  value={props.state.messagesPage.newMessageData.text}
                                   onChange={updateNewMessageText}
                                   placeholder="Enter your message">
                         </textarea>

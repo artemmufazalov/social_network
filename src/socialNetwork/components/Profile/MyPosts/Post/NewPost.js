@@ -1,7 +1,7 @@
 import React from "react";
 import s from './NewPost.module.css';
 import ProfileProps from "../../ProfileProps";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../../redux/state";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../../../redux/postsReducer";
 
 const NewPost = (props) => {
 
@@ -25,7 +25,7 @@ const NewPost = (props) => {
             <div className={s.newPostBody}>
 
                 <div>
-                    <img src={ProfileProps.getLogo()} className={s.logo}/>
+                    <img src={ProfileProps.getLogo()} className={s.logo} alt="profileLogo"/>
                 </div>
 
                 <div className={s.textArea}>
