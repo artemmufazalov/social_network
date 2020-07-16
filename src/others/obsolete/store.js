@@ -1,5 +1,5 @@
-import {postsReducer} from "./postsReducer";
-import {messagesReducer} from "./messagesReducer";
+import {postsReducer} from "../../redux/postsReducer";
+import {messagesReducer} from "../../redux/messagesReducer";
 
 let store = {
 
@@ -99,12 +99,14 @@ let store = {
             },
         },
     },
+
     _callSubscriber() {
     },
 
     subscribe(observer) {
         this._callSubscriber = observer;
     },
+
     getState() {
         return this._state;
     },
@@ -119,6 +121,6 @@ let store = {
 
 export default store;
 
-window.store = store;
+//window.store = store;
 
 

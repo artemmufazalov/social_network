@@ -3,7 +3,32 @@ import {getDate} from "./timeFunctions";
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-export const postsReducer = (state, action) => {
+let initialState =  {
+    posts: [
+        {
+            id: 103,
+            text: "Hello World, I'm the first post",
+            time: "03.07.2020",
+            likesCount: 8,
+        },
+        {
+            id: 102,
+            text: "some text",
+            time: "01.07.2020",
+            likesCount: 3,
+        },
+        {
+            id: 101,
+            text: "some text",
+            time: "29.06.2020",
+            likesCount: 0,
+        }],
+        newPost: {
+        text: ""
+    }
+};
+
+export const postsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST:
