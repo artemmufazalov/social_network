@@ -20,6 +20,8 @@ const App = (props) => {
 
             <div className="content">
 
+                <Route path="/" exact render={()=><div>MainPage</div>}/>
+
                 <Route path="/profile" render={() => <ProfileContent store={props.store}/>}/>
 
                 <Route path="/messages" render={() => <MessagesContainer store={props.store}/>}/>
