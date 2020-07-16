@@ -2,18 +2,15 @@ import React from "react";
 import s from "./Messages.module.css";
 import {MessagesParser} from "./Message";
 import DialogItem from "./Dialog";
-import {sendNewMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/messagesReducer";
 
 const Messages = (props) => {
 
     let sendNewMessage = () => {
-        let from = "Me";
-        let to = "John";
-        props.dispatch(sendNewMessageActionCreator(from, to));
+        props.sendMessage();
     }
     let updateNewMessageText = (event) => {
         let text = event.target.value;
-        props.dispatch(updateNewMessageTextActionCreator(text));
+        props.updateNewMessageText(text);
     }
 
 

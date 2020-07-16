@@ -1,14 +1,15 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import NewPost from "./Post/NewPost";
+import NewPostContainer from "./Post/NewPostContainer";
 
 const MyPosts = (props) => {
-    let posts = props.postsData.posts.map(p =><Post text={p.text} time={p.time} likesCount={p.likesCount}/>);
+    let posts = props.store.getState().postsData.posts.map(p =><Post text={p.text} time={p.time} likesCount={p.likesCount}/>);
+
     return (
         <div className={s.newsFeed}>
 
-            <NewPost newPostData={props.postsData.newPost} dispatch={props.dispatch}/>
+            <NewPostContainer store={props.store}/>
 
             <header className={s.header}>
                 Posts
