@@ -1,23 +1,36 @@
 import React from "react";
 import {sendNewMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/messagesReducer";
 import Messages from "./Messages";
+import StoreContext from "../../../storeContext";
 
-const MessagesContainer = (props) => {
-
-    let sendNewMessage = () => {
-        let from = "Me";
-        let to = "John";
-        props.store.dispatch(sendNewMessageActionCreator(from, to));
-    }
-    let updateNewMessageText = (text) => {
-        props.store.dispatch(updateNewMessageTextActionCreator(text));
-    }
+const MessagesContainer = () => {
 
     return (
-        <Messages sendMessage={sendNewMessage}
-                  updateNewMessageText={updateNewMessageText}
-                  state={props.store.getState()}
-        />
+        <StoreContext.Consumer>
+            {(store) => {
+
+                let sendNewMessage = () => {
+                    let from = "Me";
+                    let to = "John";
+                    store.dispatch(sendNewMessageActionCreator(from, to));
+                }
+                let updateNewMessageText = (text) => {
+                    store.dispatch(updateNewMessageTextActionCreator(text));
+                }
+
+                return (
+                    <Messages sendMessage={sendNewMessage}
+                              updateNewMessageText={updateNewMessageText}
+                              state={store.getState()}
+                    />
+                );
+            }
+
+            }
+
+        </StoreContext.Consumer>
+
+
     );
 }
 export default MessagesContainer;
