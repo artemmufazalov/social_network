@@ -1,7 +1,7 @@
 import {getTime} from "./timeFunctions";
 
-const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+const SEND_NEW_MESSAGE = "SEND_NEW_MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
 
 let initialState = {
     dialogsData: [
