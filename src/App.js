@@ -9,7 +9,7 @@ import News from "./socialNetwork/components/News/News";
 import Music from "./socialNetwork/components/Music/Music";
 import Settings from "./socialNetwork/components/Settings/Settings";
 import MessagesContainer from "./socialNetwork/components/Messages/MessagesContainer";
-
+import UsersContainer from "./socialNetwork/components/Users/UsersContainer";
 
 const App = (props) => {
     return (
@@ -20,7 +20,7 @@ const App = (props) => {
 
             <div className="content">
 
-                <Route path="/" exact render={()=><div>MainPage</div>}/>
+                <Route path="/" exact render={() => <div>MainPage</div>}/>
 
                 <Route path="/profile" render={() => <ProfileContent store={props.store}/>}/>
 
@@ -29,6 +29,8 @@ const App = (props) => {
                 <Route path="/news" render={() => <News/>}/>
 
                 <Route path="/music" render={() => <Music/>}/>
+
+                <Route path="/users" render={() => <UsersContainer/>}/>
 
                 <Route path="/settings" render={() => <Settings/>}/>
 
