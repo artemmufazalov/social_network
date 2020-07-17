@@ -5,7 +5,7 @@ import NewPost from "./Post/NewPost";
 
 const MyPosts = (props) => {
 
-    let posts = props.postsData.posts.map(p => <Post text={p.text} time={p.time} likesCount={p.likesCount}/>);
+    let posts = props.postsData.posts.map(p => <Post text={p.text} time={p.time} likesCount={p.likesCount} key={p.id}/>);
 
     return (
         <div className={s.newsFeed}>

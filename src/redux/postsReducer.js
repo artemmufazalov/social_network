@@ -43,20 +43,25 @@ export const postsReducer = (state = initialState, action) => {
                 likesCount: initialLikesCount,
             };
 
-            let stateCopy = {...state};
-            stateCopy.posts = [...state.posts];
-
-            //stateCopy.posts.unshift(newPost);
-            stateCopy.posts.unshift(newPost);
-            stateCopy.newPost.text = "";
-            return stateCopy;
+            return {
+                ...state,
+                posts: [newPost, ...state.posts],
+                newPost: {
+                    ...state.newPost,
+                    text: "",
+                },
+            };
         }
         case UPDATE_NEW_POST_TEXT: {
             //{newText:""}
-            let stateCopy = {...state};
-            stateCopy.newPost = {...state.newPost};
-            stateCopy.newPost.text = action.newText;
-            return stateCopy;
+
+            return {
+                ...state,
+                newPost: {
+                    ...state.newPost,
+                    text: action.newText,
+                },
+            };
         }
         default:
             return state;

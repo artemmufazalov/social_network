@@ -10,42 +10,49 @@ let initialState = {
             id: 101,
             messages: [
                 {
+                    id: 1001,
                     time: "10.38",
                     from: "John",
                     to: "Me",
                     message: 'Hi!',
                 },
                 {
+                    id: 1002,
                     time: "10.40",
                     from: "Me",
                     to: "John",
                     message: 'Good morning!',
                 },
                 {
+                    id: 1003,
                     time: "10.41",
                     from: "John",
                     to: "Me",
                     message: 'How is your nothing?',
                 },
                 {
+                    id: 1004,
                     time: "10.41",
                     from: "Me",
                     to: "John",
                     message: 'I am good, thanks',
                 },
                 {
+                    id: 1005,
                     time: "10.42",
                     from: "John",
                     to: "Me",
                     message: 'Are u gonna out today?'
                 },
                 {
+                    id: 1006,
                     time: "10.42",
                     from: "John",
                     to: "Me",
                     message: 'about 6pm'
                 },
                 {
+                    id: 1007,
                     time: "10.45",
                     from: "Me",
                     to: "John",
@@ -75,23 +82,28 @@ let initialState = {
 };
 
 export const messagesReducer = (state = initialState, action) => {
-
+    let stateCopy;
     switch (action.type) {
         case SEND_NEW_MESSAGE: {
             //{from: ,to: ,}
+            let id = state.dialogsData[0].messages[state.dialogsData[0].messages.length - 1].id + 1;
             let time = getTime();
             let to = action.to;
             let from = action.from;
             let newMessage = {
+                id: id,
                 time: time,
                 from: from,
                 to: to,
                 message: state.newMessageData.text,
             }
 
-            let stateCopy = {...state};
-            stateCopy.dialogsData = [...state.dialogsData];
-            stateCopy.newMessageData = {...state.newMessageData};
+            //firstly we get dialogsData from state, then override them with the new data below
+            stateCopy = {
+                ...state,
+                dialogsData: [...state.dialogsData],
+                newMessageData: {...state.newMessageData},
+            };
 
             stateCopy.dialogsData[0].messages.push(newMessage);
             stateCopy.newMessageData.text = "";
@@ -99,10 +111,16 @@ export const messagesReducer = (state = initialState, action) => {
         }
         case UPDATE_NEW_MESSAGE_TEXT: {
             //{text: ,}
-            let stateCopy = {...state};
-            stateCopy.newMessageData = {...state.newMessageData};
 
-            stateCopy.newMessageData.text = action.text;
+            stateCopy = {
+                ...state,
+                newMessageData: {
+                    ...state.newMessageData,
+                    text: action.text,
+                },
+            };
+
+            //stateCopy.newMessageData.text = action.text;
             return stateCopy;
         }
         default:
