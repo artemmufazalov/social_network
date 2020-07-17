@@ -77,7 +77,7 @@ let initialState = {
 export const messagesReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case SEND_NEW_MESSAGE:
+        case SEND_NEW_MESSAGE: {
             //{from: ,to: ,}
             let time = getTime();
             let to = action.to;
@@ -88,13 +88,23 @@ export const messagesReducer = (state = initialState, action) => {
                 to: to,
                 message: state.newMessageData.text,
             }
-            state.dialogsData[0].messages.push(newMessage);
-            state.newMessageData.text = "";
-            return state;
-        case UPDATE_NEW_MESSAGE_TEXT:
+
+            let stateCopy = {...state};
+            stateCopy.dialogsData = [...state.dialogsData];
+            stateCopy.newMessageData = {...state.newMessageData};
+
+            stateCopy.dialogsData[0].messages.push(newMessage);
+            stateCopy.newMessageData.text = "";
+            return stateCopy;
+        }
+        case UPDATE_NEW_MESSAGE_TEXT: {
             //{text: ,}
-            state.newMessageData.text = action.text;
-            return state;
+            let stateCopy = {...state};
+            stateCopy.newMessageData = {...state.newMessageData};
+
+            stateCopy.newMessageData.text = action.text;
+            return stateCopy;
+        }
         default:
             return state;
     }
