@@ -1,9 +1,18 @@
 import React from "react";
 import s from "./Users.module.css";
+import * as axios from "axios";
+import defaultPagePhoto from "../../res/images/defaultPagePhoto.png";
 
 const Users = (props) => {
 
-    if (props.users.length===0){
+    if (props.users.length === 0) {
+
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                props.setUsers(response.data.items);
+            })
+    }
+    /*if (props.users.length === 0) {
         props.setUsers(
             [
                 {
@@ -41,7 +50,7 @@ const Users = (props) => {
                 },
             ]
         );
-    }
+    }*/
 
     return (
         <div>
@@ -49,7 +58,8 @@ const Users = (props) => {
                 <div key={user.id}>
                     <span>
                         <div>
-                            <img src={user.photoURL} alt="" className={s.logo}/>
+                            <img src={user.photos.small != null ? user.photos.small : defaultPagePhoto} alt=""
+                                 className={s.logo}/>
                         </div>
                         <div>
                             {user.followed ?
@@ -65,13 +75,13 @@ const Users = (props) => {
                     </span>
                     <span>
                         <span>
-                            <div>{user.fullName}</div>
+                            <div>{user.name}</div>
                             <div>{user.status}</div>
                         </span>
-                        <span>
+                        {/*<span>
                             <div>{user.location.city}</div>
                             <div>{user.location.country}</div>
-                        </span>
+                        </span>*/}
                     </span>
                 </div>
             ))
