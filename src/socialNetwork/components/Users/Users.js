@@ -4,8 +4,8 @@ import * as axios from "axios";
 import defaultPagePhoto from "../../res/images/defaultPagePhoto.png";
 
 class Users extends React.Component {
-    constructor(props) {
-        super(props);
+
+    componentDidMount() {
         this.getUsers();
     }
 
