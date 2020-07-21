@@ -1,0 +1,8 @@
+.preloader{
+    height: 50vh;
+    width: 50vw;
+    position: absolute;
+    left: 25vw;
+    bottom: 25vh;
+    margin-left: 60px;
+}
