@@ -11,8 +11,8 @@ const MyPosts = (props) => {
         <div className={s.newsFeed}>
 
             <NewPost newPostData={props.newPostData}
-                     addNewPost={props.addNewPost}
-                     onPostChange={props.onPostChange}/>
+                     addPost={props.addPost}
+                     updateNewPostText={(text)=>{props.updateNewPostText(text)}}/>
 
             <header className={s.header}>
                 Posts

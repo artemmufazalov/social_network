@@ -7,12 +7,12 @@ const NewPost = (props) => {
     let newPostTextArea = React.createRef();
 
     function addNewPost() {
-        props.addNewPost();
+        props.addPost();
     }
 
     let onPostChange = () => {
         let text = newPostTextArea.current.value;
-        props.onPostChange(text);
+        props.updateNewPostText(text);
     }
 
     return (

@@ -128,8 +128,8 @@ export const messagesReducer = (state = initialState, action) => {
     }
 }
 
-export const sendNewMessageActionCreator = (from, to) =>
+export const sendNewMessage = (from, to) =>
     ({type: SEND_NEW_MESSAGE, from: from, to: to})
 
-export const updateNewMessageTextActionCreator = (text) =>
+export const updateNewMessageText = (text) =>
     ({type: UPDATE_NEW_MESSAGE_TEXT, text: text,})
