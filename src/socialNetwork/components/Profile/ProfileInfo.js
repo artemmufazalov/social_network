@@ -1,35 +1,94 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import ProfileProps from "./ProfileProps";
+import defaultProfileLogo from "../../res/images/defaultPagePhoto.png"
+import facebookLogo from "../../res/logos/facebook.svg"
+import githubLogo from "../../res/logos/github.svg"
+import instagramLogo from "../../res/logos/instagram.svg"
+import twitterLogo from "../../res/logos/twitter.svg"
+import vkLogo from "../../res/logos/vk.svg"
+import youtubeLogo from "../../res/logos/youtube.svg"
 
-
-const ProfileInfo = () => {
+const ProfileInfo = (props) => {
+    debugger
     return (
         <div>
             <div className={s.imageContainer}>
-                <img src={ProfileProps.getProfileMainImage()} className={s.pageMainImage}/>
+                <img src={ProfileProps.getProfileMainImage()} className={s.pageMainImage} alt=""/>
             </div>
 
             <div className={s.profileContainer}>
                 <div>
-                    <img src={ProfileProps.getLogo()} className={s.profileLogo}/>
+                    <img src={props.profile.photos.large !== null ? props.profile.photos.large : defaultProfileLogo}
+                         className={s.profileLogo} alt=""/>
                 </div>
 
                 <div className={s.profileInfo}>
                     <div className={s.props}>
                         <div className={s.infoItem}>Name:</div>
-                        <div className={s.infoItem}>Surname:</div>
-                        <div className={s.infoItem}>Info:</div>
+                        {props.profile.aboutMe != null ? <div className={s.infoItem}>About:</div> : null}
                     </div>
                     <div className={s.values}>
-                        <div className={s.infoItem}>{ProfileProps.profileName}</div>
-                        <div className={s.infoItem}>{ProfileProps.profileSurname}</div>
-                        <div className={s.infoItem}>{ProfileProps.profileInfo}</div>
+                        <div className={s.infoItem}>{props.profile.fullName}</div>
+                        <div className={s.infoItem}>{props.profile.aboutMe}</div>
                     </div>
+
+                    <div className={s.contacts}>
+                        {((props.profile.contacts.facebook != null) && (props.profile.contacts.facebook.includes("facebook.com"))) ?
+                            <span>
+                                <a href={props.profile.contacts.facebook.includes("https") ? props.profile.contacts.facebook : ("https://" + props.profile.contacts.facebook)}
+                                   target="_blank">
+                                    <img src={facebookLogo} alt="" className={s.contactsImage}/>
+                                </a>
+                            </span>
+                            : null}
+                        {((props.profile.contacts.vk != null) && (props.profile.contacts.vk.includes("vk.com"))) ?
+                            <span>
+                                <a href={props.profile.contacts.vk.includes("https") ? props.profile.contacts.vk : ("https://" + props.profile.contacts.vk)}
+                                   target="_blank">
+                                    <img src={vkLogo} alt="" className={s.contactsImage}/>
+                                </a>
+                            </span>
+                            : null}
+                        {((props.profile.contacts.twitter != null) && (props.profile.contacts.twitter.includes("twitter.com"))) ?
+                            <span>
+                                <a href={props.profile.contacts.twitter.includes("https") ? props.profile.contacts.twitter : ("https://" + props.profile.contacts.twitter)}
+                                   target="_blank">
+                                    <img src={twitterLogo} alt="" className={s.contactsImage}/>
+                                </a>
+                            </span>
+                            : null}
+                        {((props.profile.contacts.instagram != null) && (props.profile.contacts.instagram.includes("instagram.com"))) ?
+                            <span>
+                                <a href={props.profile.contacts.instagram.includes("https") ? props.profile.contacts.instagram : ("https://" + props.profile.contacts.instagram)}
+                                   target="_blank">
+                                    <img src={instagramLogo} alt="" className={s.contactsImage}/>
+                                </a>
+                            </span>
+                            : null}
+                        {((props.profile.contacts.github != null) && (props.profile.contacts.github.includes("github.com"))) ?
+                            <span>
+                                <a href={props.profile.contacts.github.includes("https") ? props.profile.contacts.github : ("https://" + props.profile.contacts.github)}
+                                   target="_blank">
+                                    <img src={githubLogo} alt="" className={s.contactsImage}/>
+                                </a>
+                            </span>
+                            : null}
+                        {((props.profile.contacts.youtube != null) && (props.profile.contacts.youtube.includes("youtube.com"))) ?
+                            <span>
+                                <a href={props.profile.contacts.youtube.includes("https") ? props.profile.contacts.youtube : ("https://" + props.profile.contacts.youtube)}
+                                   target="_blank">
+                                    <img src={youtubeLogo} alt="" className={s.contactsImage}/>
+                                </a>
+                            </span>
+                            : null}
+                    </div>
+
                 </div>
             </div>
         </div>
     );
 }
+
 
 export default ProfileInfo;

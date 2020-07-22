@@ -1,31 +1,31 @@
 import React from "react";
 import s from './Post.module.css';
-import ProfileProps from "../../ProfileProps";
-import likeLogo from "../../../../res/images/likeLogo.png"
+import likeLogo from "../../../../res/images/likeLogo.png";
+import defaultPagePhoto from "../../../../res/images/defaultPagePhoto.png"
 
-const Post = ({text,time,likesCount}) => {
+const Post = (props) => {
     return (
 
         <div className={s.mainBody}>
 
             <div>
-                <img src={ProfileProps.getLogo()} className={s.logo}/>
+                <img src={props.photo!=null?props.photo:defaultPagePhoto} className={s.logo} alt=""/>
             </div>
 
-            <div className={s.postTime}>{time}</div>
+            <div className={s.postTime}>{props.time}</div>
 
-            <div className={s.name}>{ProfileProps.profileName}</div>
+            <div className={s.name}>{props.name}</div>
 
             <div className={s.text}>
-                {text}
+                {props.text}
             </div>
 
             <div className={s.footer}>
                 <span className={s.likesCount}>
-                    {likesCount}
+                    {props.likesCount}
                 </span>
                 <span className={s.buttonGrid}>
-                    <input type="image" src={likeLogo} className={s.btn}/>
+                    <input type="image" src={likeLogo} className={s.btn} alt=""/>
                 </span>
             </div>
 

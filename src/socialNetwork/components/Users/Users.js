@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Users.module.css";
 import defaultPagePhoto from "../../res/images/defaultPagePhoto.png";
+import {NavLink} from "react-router-dom";
 
 const checkForValue = (number, currentPage, totalPagesCount) => {
     switch (number) {
@@ -68,9 +69,11 @@ const Users = (props) => {
                     <div key={user.id}>
                              <span>
                                  <div>
-                                    <img src={user.photos.small != null ? user.photos.small : defaultPagePhoto}
-                                         alt=""
-                                         className={s.logo}/>
+                                     <NavLink to={'/profile/'+user.id}>
+                                          <img src={user.photos.small != null ? user.photos.small : defaultPagePhoto}
+                                               alt=""
+                                               className={s.logo}/>
+                                     </NavLink>
                                 </div>
                                  <div>
                                     {user.followed ?

@@ -4,17 +4,16 @@ import ProfileInfo from "./ProfileInfo";
 import MyPostContainer from "./MyPosts/MyPostsContainer";
 
 
-
-const ProfileContent = (props) => {
+const Profile = (props) => {
     return (
         <div className={s.profileClass}>
 
-            <ProfileInfo/>
+            <ProfileInfo profile={props.profile}/>
 
-            <MyPostContainer store={props.store}/>
+            <MyPostContainer/>
 
         </div>
     );
 };
 
-export default ProfileContent;
+export default Profile;

@@ -20,7 +20,6 @@ class UsersContainer extends React.Component {
 
     getUsers = (pageNumber = 1) => {
         this.props.setIsFetching(true);
-        this.props.setUsers([]);
         //data.items {id:,name:,status:,photos{small:,large:},followed:}
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`)
             .then(response => {
@@ -40,17 +39,17 @@ class UsersContainer extends React.Component {
     render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader/> : null}
-                <Users
-                    users={this.props.users}
-                    pageSize={this.props.pageSize}
-                    totalUsersCount={this.props.totalUsersCount}
-                    currentPage={this.props.currentPage}
-                    follow={this.props.follow}
-                    unfollow={this.props.unfollow}
-                    setCurrentPage={this.props.setCurrentPage}
-                    onPageNumberClick={this.onPageNumberClick}
-                />
+                {this.props.isFetching ? <Preloader/>
+                    : <Users
+                        users={this.props.users}
+                        pageSize={this.props.pageSize}
+                        totalUsersCount={this.props.totalUsersCount}
+                        currentPage={this.props.currentPage}
+                        follow={this.props.follow}
+                        unfollow={this.props.unfollow}
+                        setCurrentPage={this.props.setCurrentPage}
+                        onPageNumberClick={this.onPageNumberClick}
+                    />}
             </>
         );
     }

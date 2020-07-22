@@ -1,7 +1,10 @@
 import {getDate} from "./timeFunctions";
+import pageLogo from "../socialNetwork/res/images/dragonLogo.jpg"
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 let initialState = {
     posts: [
@@ -25,10 +28,33 @@ let initialState = {
         }],
     newPost: {
         text: ""
-    }
+    },
+    profile: null,
+    profileIsFetching: true,
+    myProfile: {
+        fullName: "ArtyomMufazalov",
+        aboutMe: "JS and Java coder",
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: "https://vk.com/mufazalov_a",
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: "https://github.com/artemmufazalov",
+            mainLink: null,
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: "searching for a job as Frontend developer",
+        userId: 0,
+        photos: {
+            small: pageLogo,
+            large: pageLogo,
+        }
+    },
 };
 
-export const postsReducer = (state = initialState, action) => {
+export const profileReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ADD_POST: {
@@ -63,6 +89,16 @@ export const postsReducer = (state = initialState, action) => {
                 },
             };
         }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile,
+            };
+        case TOGGLE_IS_FETCHING:
+            return {
+                ...state,
+                profileIsFetching: action.isFetching,
+            }
         default:
             return state;
     }
@@ -72,3 +108,9 @@ export const addPost = () => ({type: ADD_POST});
 
 export const updateNewPostText = (text) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: text});
+
+export const setUserProfile = (profile) =>
+    ({type: SET_USER_PROFILE, profile});
+
+export const setIsFetching = (isFetching) =>
+    ({type: TOGGLE_IS_FETCHING, isFetching})

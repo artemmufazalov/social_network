@@ -1,6 +1,6 @@
 import React from "react";
 import s from './NewPost.module.css';
-import ProfileProps from "../../ProfileProps";
+import defaultPagePhoto from "../../../../res/images/defaultPagePhoto.png"
 
 const NewPost = (props) => {
 
@@ -24,7 +24,8 @@ const NewPost = (props) => {
             <div className={s.newPostBody}>
 
                 <div>
-                    <img src={ProfileProps.getLogo()} className={s.logo} alt="profileLogo"/>
+                    <img src={props.photo != null ? props.photo : defaultPagePhoto} className={s.logo}
+                         alt="profileLogo"/>
                 </div>
 
                 <div className={s.textArea}>
