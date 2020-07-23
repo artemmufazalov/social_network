@@ -2,7 +2,7 @@ import s from "./MessageItem.module.css";
 import React from "react";
 
 export const MessagesParser = (props) => {
-    if (props.message.to == "Me") {
+    if (props.message.to === "Me") {
         return (
             <div className={s.toMeMessage}>
                 <Message text={props.message.message} name={props.message.from} time={props.message.time}/>
