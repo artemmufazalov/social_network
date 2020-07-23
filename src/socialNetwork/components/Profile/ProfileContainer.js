@@ -11,8 +11,7 @@ class ProfileContainer extends React.Component {
     componentDidMount() {
         this.props.setIsFetching(true);
         let userId = this.props.match.params.userId;
-        if (!userId) {
-            this.props.setUserProfile(this.props.myProfile);
+        if (!userId || userId === this.props.myId) {
             this.props.setIsFetching(false);
         } else {
             axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
@@ -26,14 +25,18 @@ class ProfileContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.setIsFetching(true);
     }
 
     render() {
 
         return (
             <>
-                {this.props.profileIsFetching ? <Preloader/> : <Profile {...this.props}/>}
+                {(this.props.profileIsFetching || this.props.authIsFetching) ? <Preloader/>
+                    : ((!this.props.match.params.userId) || (this.props.match.params.userId == this.props.myId)) ?
+                        <Profile profile={this.props.myProfile}/>
+                        :
+                        <Profile profile={this.props.profile}/>}
+
             </>
         );
     }
@@ -42,7 +45,10 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     profileIsFetching: state.profilePage.profileIsFetching,
-    myProfile: state.profilePage.myProfile,
+    myProfile: state.auth.currentUserProfile,
+    myId: state.auth.id,
+    authIsFetching: state.auth.isFetching,
+
 });
 
 let WithURLDataContainerComponent = withRouter(ProfileContainer);

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from "./socialNetwork/components/Header/Header";
 import NavBar from "./socialNetwork/components/NavBar/NavBar";
 import Footer from "./socialNetwork/components/Footer/Footer";
 import {Route} from "react-router-dom";
@@ -10,12 +9,13 @@ import Settings from "./socialNetwork/components/Settings/Settings";
 import MessagesContainer from "./socialNetwork/components/Messages/MessagesContainer";
 import UsersContainer from "./socialNetwork/components/Users/UsersContainer";
 import ProfileContainer from "./socialNetwork/components/Profile/ProfileContainer";
+import HeaderContainer from "./socialNetwork/components/Header/HeaderContainer";
 
 const App = () => {
     return (
         <div className="app-wrapper">
 
-            <Header/>
+            <HeaderContainer/>
             <NavBar/>
 
             <div className="content">

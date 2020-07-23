@@ -10,82 +10,84 @@ import vkLogo from "../../res/logos/vk.svg"
 import youtubeLogo from "../../res/logos/youtube.svg"
 
 const ProfileInfo = (props) => {
-    debugger
     return (
         <div>
             <div className={s.imageContainer}>
                 <img src={ProfileProps.getProfileMainImage()} className={s.pageMainImage} alt=""/>
             </div>
-
-            <div className={s.profileContainer}>
-                <div>
-                    <img src={props.profile.photos.large !== null ? props.profile.photos.large : defaultProfileLogo}
-                         className={s.profileLogo} alt=""/>
-                </div>
-
-                <div className={s.profileInfo}>
-                    <div className={s.props}>
-                        <div className={s.infoItem}>Name:</div>
-                        {props.profile.aboutMe != null ? <div className={s.infoItem}>About:</div> : null}
-                    </div>
-                    <div className={s.values}>
-                        <div className={s.infoItem}>{props.profile.fullName}</div>
-                        <div className={s.infoItem}>{props.profile.aboutMe}</div>
+            {!props.profile ? null
+                :
+                <div className={s.profileContainer}>
+                    <div>
+                        <img src={!props.profile.photos.large ? defaultProfileLogo
+                            : props.profile.photos.large}
+                             className={s.profileLogo} alt=""/>
                     </div>
 
-                    <div className={s.contacts}>
-                        {((props.profile.contacts.facebook != null) && (props.profile.contacts.facebook.includes("facebook.com"))) ?
-                            <span>
+                    <div className={s.profileInfo}>
+                        <div className={s.props}>
+                            <div className={s.infoItem}>Name:</div>
+                            {props.profile.aboutMe != null ? <div className={s.infoItem}>About:</div> : null}
+                        </div>
+                        <div className={s.values}>
+                            <div className={s.infoItem}>{props.profile.fullName}</div>
+                            <div className={s.infoItem}>{props.profile.aboutMe}</div>
+                        </div>
+
+                        <div className={s.contacts}>
+                            {((props.profile.contacts.facebook != null) && (props.profile.contacts.facebook.includes("facebook.com"))) ?
+                                <span>
                                 <a href={props.profile.contacts.facebook.includes("https") ? props.profile.contacts.facebook : ("https://" + props.profile.contacts.facebook)}
                                    target="_blank" rel="noopener noreferrer">
                                     <img src={facebookLogo} alt="" className={s.contactsImage}/>
                                 </a>
                             </span>
-                            : null}
-                        {((props.profile.contacts.vk != null) && (props.profile.contacts.vk.includes("vk.com"))) ?
-                            <span>
+                                : null}
+                            {((props.profile.contacts.vk != null) && (props.profile.contacts.vk.includes("vk.com"))) ?
+                                <span>
                                 <a href={props.profile.contacts.vk.includes("https") ? props.profile.contacts.vk : ("https://" + props.profile.contacts.vk)}
                                    target="_blank" rel="noopener noreferrer">
                                     <img src={vkLogo} alt="" className={s.contactsImage}/>
                                 </a>
                             </span>
-                            : null}
-                        {((props.profile.contacts.twitter != null) && (props.profile.contacts.twitter.includes("twitter.com"))) ?
-                            <span>
+                                : null}
+                            {((props.profile.contacts.twitter != null) && (props.profile.contacts.twitter.includes("twitter.com"))) ?
+                                <span>
                                 <a href={props.profile.contacts.twitter.includes("https") ? props.profile.contacts.twitter : ("https://" + props.profile.contacts.twitter)}
                                    target="_blank" rel="noopener noreferrer">
                                     <img src={twitterLogo} alt="" className={s.contactsImage}/>
                                 </a>
                             </span>
-                            : null}
-                        {((props.profile.contacts.instagram != null) && (props.profile.contacts.instagram.includes("instagram.com"))) ?
-                            <span>
+                                : null}
+                            {((props.profile.contacts.instagram != null) && (props.profile.contacts.instagram.includes("instagram.com"))) ?
+                                <span>
                                 <a href={props.profile.contacts.instagram.includes("https") ? props.profile.contacts.instagram : ("https://" + props.profile.contacts.instagram)}
                                    target="_blank" rel="noopener noreferrer">
                                     <img src={instagramLogo} alt="" className={s.contactsImage}/>
                                 </a>
                             </span>
-                            : null}
-                        {((props.profile.contacts.github != null) && (props.profile.contacts.github.includes("github.com"))) ?
-                            <span>
+                                : null}
+                            {((props.profile.contacts.github != null) && (props.profile.contacts.github.includes("github.com"))) ?
+                                <span>
                                 <a href={props.profile.contacts.github.includes("https") ? props.profile.contacts.github : ("https://" + props.profile.contacts.github)}
                                    target="_blank" rel="noopener noreferrer">
                                     <img src={githubLogo} alt="" className={s.contactsImage}/>
                                 </a>
                             </span>
-                            : null}
-                        {((props.profile.contacts.youtube != null) && (props.profile.contacts.youtube.includes("youtube.com"))) ?
-                            <span>
+                                : null}
+                            {((props.profile.contacts.youtube != null) && (props.profile.contacts.youtube.includes("youtube.com"))) ?
+                                <span>
                                 <a href={props.profile.contacts.youtube.includes("https") ? props.profile.contacts.youtube : ("https://" + props.profile.contacts.youtube)}
                                    target="_blank" rel="noopener noreferrer">
                                     <img src={youtubeLogo} alt="" className={s.contactsImage}/>
                                 </a>
                             </span>
-                            : null}
-                    </div>
+                                : null}
+                        </div>
 
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

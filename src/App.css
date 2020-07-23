@@ -10,7 +10,7 @@
     grid-template-columns: 2fr 10fr;
     grid-gap: 10px;
     background-color: aliceblue;
-    min-height: 100vh;
+    min-height: 101vh;
 }
 .content{
     grid-area: content;

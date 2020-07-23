@@ -1,5 +1,4 @@
 import {getDate} from "./timeFunctions";
-import pageLogo from "../socialNetwork/res/images/dragonLogo.jpg"
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
@@ -31,27 +30,6 @@ let initialState = {
     },
     profile: null,
     profileIsFetching: true,
-    myProfile: {
-        fullName: "ArtyomMufazalov",
-        aboutMe: "JS and Java coder",
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: "https://vk.com/mufazalov_a",
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: "https://github.com/artemmufazalov",
-            mainLink: null,
-        },
-        lookingForAJob: true,
-        lookingForAJobDescription: "searching for a job as Frontend developer",
-        userId: 0,
-        photos: {
-            small: pageLogo,
-            large: pageLogo,
-        }
-    },
 };
 
 export const profileReducer = (state = initialState, action) => {

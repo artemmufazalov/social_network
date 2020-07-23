@@ -2,11 +2,9 @@ import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import NewPost from "./Post/NewPost";
+import defaultPagePhoto from "../../../res/images/defaultPagePhoto.png"
 
 const MyPosts = (props) => {
-
-    let posts = props.posts.map(p => <Post text={p.text} time={p.time} likesCount={p.likesCount} key={p.id}
-                                           photo={props.profile.photos.small} name={props.profile.fullName}/>);
 
     return (
         <div className={s.newsFeed}>
@@ -16,7 +14,9 @@ const MyPosts = (props) => {
                      updateNewPostText={(text) => {
                          props.updateNewPostText(text)
                      }}
-                     photo={props.profile.photos.small}
+                     photo={!props.profile ? defaultPagePhoto
+                         : !props.profile.photos.small ? defaultPagePhoto
+                             : props.profile.photos.small}
             />
 
             <header className={s.header}>
@@ -24,7 +24,10 @@ const MyPosts = (props) => {
             </header>
 
             <div>
-                {posts}
+                {!props.profile ? null
+                    : props.posts.map(p => <Post text={p.text} time={p.time} likesCount={p.likesCount} key={p.id}
+                                                 photo={props.profile.photos.small} name={props.profile.fullName}/>)
+                }
             </div>
         </div>
     );

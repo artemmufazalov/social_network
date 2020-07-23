@@ -2,13 +2,13 @@ import React from "react";
 import s from "./Preloader.module.css";
 import preloader from "../../../res/Spinner-1.3s-200px.svg";
 
-const Preloader = () => {
+const PreloaderCustom = (props) => {
     return (
         <img alt=""
              src={preloader}
-             className={s.preloaderBig}
+             className={props.className}
         />
     );
 }
 
-export default Preloader;
+export default PreloaderCustom;

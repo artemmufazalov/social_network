@@ -1,8 +1,13 @@
-.preloader{
+.preloaderBig {
     height: 50vh;
     width: 50vw;
     position: absolute;
     left: 25vw;
     bottom: 25vh;
     margin-left: 60px;
+}
+
+.preloaderSmall {
+    height: 40px;
+    width: 40px;
 }

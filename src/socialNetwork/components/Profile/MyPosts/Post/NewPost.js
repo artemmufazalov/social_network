@@ -1,6 +1,5 @@
 import React from "react";
 import s from './NewPost.module.css';
-import defaultPagePhoto from "../../../../res/images/defaultPagePhoto.png"
 
 const NewPost = (props) => {
 
@@ -24,7 +23,7 @@ const NewPost = (props) => {
             <div className={s.newPostBody}>
 
                 <div>
-                    <img src={props.photo != null ? props.photo : defaultPagePhoto} className={s.logo}
+                    <img src={props.photo} className={s.logo}
                          alt="profileLogo"/>
                 </div>
 
