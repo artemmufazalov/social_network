@@ -8,9 +8,9 @@ import {
     unfollow
 } from "../../../redux/usersReducer";
 import React from "react";
-import * as axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {FollowAPI, UserAPI} from "../../../api/api";
 
 class UsersContainer extends React.Component {
 
@@ -21,13 +21,11 @@ class UsersContainer extends React.Component {
     getUsers = (pageNumber = 1) => {
         this.props.setIsFetching(true);
         //data.items {id:,name:,status:,photos{small:,large:},followed:}
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`,{
-            withCredentials: true
-        })
-            .then(response => {
-                this.props.setUsers(response.data.items);
+        UserAPI.getUsers(this.props.pageSize, pageNumber)
+            .then(data => {
+                this.props.setUsers(data.items);
                 if (this.props.totalUsersCount === 0) {
-                    this.props.setTotalUsersCount(response.data.totalCount);
+                    this.props.setTotalUsersCount(data.totalCount);
                 }
                 this.props.setIsFetching(false);
             });
@@ -39,33 +37,23 @@ class UsersContainer extends React.Component {
     }
 
     onFollow(userId) {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': '4af23d3e-a1fa-432e-980b-382d82c7d9eb'
-            }
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
+        FollowAPI.followRequest(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
                     this.props.follow(userId);
                 } else {
-                    console.log(response.data.messages);
+                    console.log(data.messages);
                 }
             });
     }
 
     onUnFollow(userId) {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': '4af23d3e-a1fa-432e-980b-382d82c7d9eb'
-            }
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
+        FollowAPI.unfollowRequest(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
                     this.props.unfollow(userId);
                 } else {
-                    console.log(response.data.messages);
+                    console.log(data.messages);
                 }
             });
     }

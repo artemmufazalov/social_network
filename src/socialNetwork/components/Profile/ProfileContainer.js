@@ -1,10 +1,10 @@
 import React from "react";
 import Profile from "./Profile";
-import * as axios from "axios";
 import {connect} from "react-redux";
 import {setIsFetching, setUserProfile} from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
+import {UserAPI} from "../../../api/api";
 
 class ProfileContainer extends React.Component {
 
@@ -14,9 +14,9 @@ class ProfileContainer extends React.Component {
         if (!userId || userId === this.props.myId) {
             this.props.setIsFetching(false);
         } else {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-                .then(response => {
-                    this.props.setUserProfile(response.data);
+            UserAPI.getUserProfile(userId)
+                .then(data => {
+                    this.props.setUserProfile(data);
                     if (this.props.profile != null) {
                         this.props.setIsFetching(false);
                     }
