@@ -23,3 +23,5 @@
     margin-right: 5px;
     color: darkblue;
 }
+.user button:disabled{
+}

@@ -13,7 +13,7 @@ export const UserAPI = {
         return axiosInstance.get(`profile/${userId}`)
             .then(response => response.data);
     },
-    getUsers(pageSize, pageNumber) {
+    getUsers(pageSize = 10, pageNumber = 1) {
         return axiosInstance.get(`users?count=${pageSize}&page=${pageNumber}`)
             .then(response => response.data);
     }

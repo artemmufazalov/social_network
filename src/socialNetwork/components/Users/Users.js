@@ -66,10 +66,10 @@ const Users = (props) => {
 
             <div className={s.usersContainer}>
                 {props.users.map(user => (
-                    <div key={user.id}>
+                    <div key={user.id} className={s.user}>
                              <span>
                                  <div>
-                                     <NavLink to={'/profile/'+user.id}>
+                                     <NavLink to={'/profile/' + user.id}>
                                           <img src={user.photos.small != null ? user.photos.small : defaultPagePhoto}
                                                alt=""
                                                className={s.logo}/>
@@ -77,13 +77,17 @@ const Users = (props) => {
                                 </div>
                                  <div>
                                     {user.followed ?
-                                        <button onClick={() => {
-                                            props.unfollow(user.id)
-                                        }} className={s.btn}>unfollow</button>
+                                        <button className={s.btn}
+                                                disabled={props.isFollowingInProgress.some(id=>id===user.id)}
+                                                onClick={() => {
+                                                    props.unfollow(user.id)
+                                                }}>unfollow</button>
                                         :
-                                        <button onClick={() => {
-                                            props.follow(user.id)
-                                        }} className={s.btn}>follow</button>}
+                                        <button className={s.btn}
+                                                disabled={props.isFollowingInProgress.some(id=>id===user.id)}
+                                                onClick={() => {
+                                                    props.follow(user.id)
+                                                }}>follow</button>}
                                 </div>
                              </span>
                         <span>

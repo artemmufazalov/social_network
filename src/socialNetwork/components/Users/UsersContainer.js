@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import {
     follow,
     setCurrentPage,
+    setFollowingInProgress,
     setIsFetching,
     setTotalUsersCount,
     setUsers,
@@ -37,6 +38,7 @@ class UsersContainer extends React.Component {
     }
 
     onFollow(userId) {
+        this.props.setFollowingInProgress(true, userId);
         FollowAPI.followRequest(userId)
             .then(data => {
                 if (data.resultCode === 0) {
@@ -44,10 +46,12 @@ class UsersContainer extends React.Component {
                 } else {
                     console.log(data.messages);
                 }
+                this.props.setFollowingInProgress(false, userId)
             });
     }
 
     onUnFollow(userId) {
+        this.props.setFollowingInProgress(true, userId);
         FollowAPI.unfollowRequest(userId)
             .then(data => {
                 if (data.resultCode === 0) {
@@ -55,6 +59,7 @@ class UsersContainer extends React.Component {
                 } else {
                     console.log(data.messages);
                 }
+                this.props.setFollowingInProgress(false, userId);
             });
     }
 
@@ -75,6 +80,7 @@ class UsersContainer extends React.Component {
                         }}
                         setCurrentPage={this.props.setCurrentPage}
                         onPageNumberClick={this.onPageNumberClick}
+                        isFollowingInProgress={this.props.isFollowingInProgress}
                     />}
             </>
         );
@@ -89,6 +95,7 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        isFollowingInProgress: state.usersPage.followingInProgress,
     }
 }
 
@@ -100,4 +107,5 @@ export default connect(mapStateToProps,
         setCurrentPage,
         setTotalUsersCount,
         setIsFetching,
+        setFollowingInProgress,
     })(UsersContainer);
