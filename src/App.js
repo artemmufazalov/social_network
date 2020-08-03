@@ -10,6 +10,7 @@ import MessagesContainer from "./socialNetwork/components/Messages/MessagesConta
 import UsersContainer from "./socialNetwork/components/Users/UsersContainer";
 import ProfileContainer from "./socialNetwork/components/Profile/ProfileContainer";
 import HeaderContainer from "./socialNetwork/components/Header/HeaderContainer";
+import LoginPage from "./socialNetwork/components/Login/Login";
 
 const App = () => {
     return (
@@ -33,6 +34,8 @@ const App = () => {
                 <Route path="/users" render={() => <UsersContainer/>}/>
 
                 <Route path="/settings" render={() => <Settings/>}/>
+
+                <Route path="/login" render={()=><LoginPage/>}/>
 
             </div>
 
