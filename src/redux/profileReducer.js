@@ -1,4 +1,5 @@
 import {getDate} from "./timeFunctions";
+import {UserAPI} from "../api/api";
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
@@ -91,4 +92,14 @@ export const setUserProfile = (profile) =>
     ({type: SET_USER_PROFILE, profile});
 
 export const setIsFetching = (isFetching) =>
-    ({type: TOGGLE_IS_FETCHING, isFetching})
+    ({type: TOGGLE_IS_FETCHING, isFetching});
+
+export const getUserProfile = (userId) => {
+    return (dispatch) => {
+        UserAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data));
+                dispatch(setIsFetching(false));
+            });
+    }
+}
