@@ -6,6 +6,7 @@ import {
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 class UsersContainer extends React.Component {
 
@@ -57,4 +58,4 @@ export default connect(mapStateToProps,
         unfollow,
         setCurrentPage,
         getUsers,
-    })(UsersContainer);
+    })(withAuthRedirect(UsersContainer));
