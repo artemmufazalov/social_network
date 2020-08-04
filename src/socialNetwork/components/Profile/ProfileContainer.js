@@ -5,6 +5,7 @@ import {getUserProfile, setIsFetching} from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
 
@@ -44,11 +45,11 @@ let mapStateToProps = (state) => ({
     authIsFetching: state.auth.isFetching,
 });
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
-let WithURLDataContainerComponent = withRouter(AuthRedirectComponent);
-
-export default connect(mapStateToProps, {
-    setIsFetching,
-    getUserProfile,
-})(WithURLDataContainerComponent);
+export default compose(
+    connect(mapStateToProps, {
+        setIsFetching,
+        getUserProfile,
+    }),
+    withRouter,
+    withAuthRedirect,
+)(ProfileContainer);
