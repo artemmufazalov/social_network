@@ -1,7 +1,14 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, getUserStatus, setIsFetching, updateStatus} from "../../../redux/profileReducer";
+import {
+    addPost,
+    getUserProfile,
+    getUserStatus,
+    setIsFetching,
+    updateNewPostText,
+    updateStatus
+} from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
@@ -14,30 +21,41 @@ class ProfileContainer extends React.Component {
         let userId = this.props.match.params.userId;
         if (!userId || userId === this.props.myId) {
             this.props.setIsFetching(false);
+            userId = this.props.myId;
         } else {
             this.props.getUserProfile(userId);
         }
         this.props.getUserStatus(userId);
     }
 
-    componentWillUnmount() {
-    }
-
     render() {
-        let myProfile = (this.props.match.params.userId == this.props.myId||!this.props.match.params.userId);
+        let isMyProfile = (this.props.match.params.userId == this.props.myId || !this.props.match.params.userId);
         return (
             <>
                 {(this.props.profileIsFetching || this.props.authIsFetching) ? <Preloader/>
-                    : (myProfile) ?
+                    : (isMyProfile) ?
                         <Profile profile={this.props.myProfile}
                                  status={this.props.status}
                                  updateStatus={this.props.updateStatus}
-                                 myProfile={myProfile}/>
+                                 isMyProfile={isMyProfile}
+
+                                 newPostData={this.props.newPostData}
+                                 posts={this.props.posts}
+                                 addPost={this.props.addPost}
+                                 updateNewPostText={this.props.updateNewPostText}
+
+                        />
                         :
                         <Profile profile={this.props.profile}
                                  status={this.props.status}
                                  updateStatus={this.props.updateStatus}
-                                 myProfile={myProfile}/>}
+                                 isMyProfile={isMyProfile}
+
+                                 newPostData={this.props.newPostData}
+                                 posts={this.props.posts}
+                                 addPost={this.props.addPost}
+                                 updateNewPostText={this.props.updateNewPostText}
+                        />}
 
             </>
         );
@@ -51,7 +69,8 @@ let mapStateToProps = (state) => ({
     myId: state.auth.id,
     authIsFetching: state.auth.isFetching,
     status: state.profilePage.status,
-
+    newPostData: state.profilePage.newPost,
+    posts: state.profilePage.posts,
 });
 
 export default compose(
@@ -60,6 +79,8 @@ export default compose(
         getUserProfile,
         getUserStatus,
         updateStatus,
+        addPost,
+        updateNewPostText
     }),
     withRouter,
     withAuthRedirect,

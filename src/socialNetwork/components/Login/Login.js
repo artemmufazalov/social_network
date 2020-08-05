@@ -7,7 +7,6 @@ let mapStateToProps = (state) => ({
 });
 
 const LoginPage = (props) => {
-    console.log(props);
     if (props.isAuth) {
         switch (props.match.params.componentName) {
             case "ProfileContainer":

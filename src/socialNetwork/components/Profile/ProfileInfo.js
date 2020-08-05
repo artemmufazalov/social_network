@@ -29,7 +29,7 @@ const ProfileInfo = (props) => {
                         <div className={s.status}>
                             <ProfileStatus status={props.status}
                                            updateStatus={props.updateStatus}
-                                           myProfile={props.myProfile}/>
+                                           isMyProfile={props.isMyProfile}/>
                         </div>
                         <div className={s.props}>
                             {props.profile.aboutMe != null ? <div className={s.infoItem}>About:</div> : null}

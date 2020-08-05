@@ -10,7 +10,7 @@ class ProfileStatus extends React.Component {
     }
 
     activateEditMode = () => {
-        if (this.props.myProfile) {
+        if (this.props.isMyProfile) {
             this.setState({
                 editMode: true,
             });
@@ -48,9 +48,9 @@ class ProfileStatus extends React.Component {
                             {this.props.status}
                         </div>
                     </div>
-                    : this.props.myProfile ?
+                    : this.props.isMyProfile ?
                         <div onBlur={this.deactivateEditMode}
-                             autofocus={true}>
+                             autoFocus={true}>
                             <input
                                 onChange={this.onStatusChange}
                                 type="text"
