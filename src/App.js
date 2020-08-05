@@ -35,7 +35,7 @@ const App = () => {
 
                 <Route path="/settings" render={() => <Settings/>}/>
 
-                <Route path="/login" render={()=><LoginPage/>}/>
+                <Route path="/login/:componentName?" render={()=><LoginPage/>}/>
 
             </div>
 

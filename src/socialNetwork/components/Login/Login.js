@@ -1,10 +1,29 @@
 import React from "react";
+import {Redirect, withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
-const Login = () => {
+let mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth,
+});
+
+const LoginPage = (props) => {
+    console.log(props);
+    if (props.isAuth) {
+        switch (props.match.params.componentName) {
+            case "ProfileContainer":
+                return <Redirect to={"/profile"}/>
+            case "Messages":
+                return <Redirect to={"/messages"}/>
+            case "UsersContainer":
+                return <Redirect to={"/users"}/>
+            default:
+                return null;
+        }
+    }
     return (
         <div>login</div>
     );
 
 }
 
-export default Login;
+export default connect(mapStateToProps, {})(withRouter(LoginPage));
