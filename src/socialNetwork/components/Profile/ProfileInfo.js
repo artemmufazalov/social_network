@@ -1,6 +1,5 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
-import ProfileProps from "./ProfileProps";
 import defaultProfileLogo from "../../res/images/defaultPagePhoto.png"
 import facebookLogo from "../../res/logos/facebook.svg"
 import githubLogo from "../../res/logos/github.svg"
@@ -8,13 +7,12 @@ import instagramLogo from "../../res/logos/instagram.svg"
 import twitterLogo from "../../res/logos/twitter.svg"
 import vkLogo from "../../res/logos/vk.svg"
 import youtubeLogo from "../../res/logos/youtube.svg"
+import ProfileStatus from "./ProfileStatus.js"
 
 const ProfileInfo = (props) => {
     return (
         <div>
-            <div className={s.imageContainer}>
-                <img src={ProfileProps.getProfileMainImage()} className={s.pageMainImage} alt=""/>
-            </div>
+
             {!props.profile ? null
                 :
                 <div className={s.profileContainer}>
@@ -25,12 +23,18 @@ const ProfileInfo = (props) => {
                     </div>
 
                     <div className={s.profileInfo}>
+                        <div className={s.name}>
+                            {props.profile.fullName}
+                        </div>
+                        <div className={s.status}>
+                            <ProfileStatus status={props.status}
+                                           updateStatus={props.updateStatus}
+                                           myProfile={props.myProfile}/>
+                        </div>
                         <div className={s.props}>
-                            <div className={s.infoItem}>Name:</div>
                             {props.profile.aboutMe != null ? <div className={s.infoItem}>About:</div> : null}
                         </div>
                         <div className={s.values}>
-                            <div className={s.infoItem}>{props.profile.fullName}</div>
                             <div className={s.infoItem}>{props.profile.aboutMe}</div>
                         </div>
 

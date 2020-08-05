@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfile, setIsFetching} from "../../../redux/profileReducer";
+import {getUserProfile, getUserStatus, setIsFetching, updateStatus} from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
@@ -17,20 +17,27 @@ class ProfileContainer extends React.Component {
         } else {
             this.props.getUserProfile(userId);
         }
+        this.props.getUserStatus(userId);
     }
 
     componentWillUnmount() {
     }
 
     render() {
-
+        let myProfile = (this.props.match.params.userId == this.props.myId||!this.props.match.params.userId);
         return (
             <>
                 {(this.props.profileIsFetching || this.props.authIsFetching) ? <Preloader/>
-                    : ((!this.props.match.params.userId) || (this.props.match.params.userId == this.props.myId)) ?
-                        <Profile profile={this.props.myProfile}/>
+                    : (myProfile) ?
+                        <Profile profile={this.props.myProfile}
+                                 status={this.props.status}
+                                 updateStatus={this.props.updateStatus}
+                                 myProfile={myProfile}/>
                         :
-                        <Profile profile={this.props.profile}/>}
+                        <Profile profile={this.props.profile}
+                                 status={this.props.status}
+                                 updateStatus={this.props.updateStatus}
+                                 myProfile={myProfile}/>}
 
             </>
         );
@@ -43,12 +50,16 @@ let mapStateToProps = (state) => ({
     myProfile: state.auth.currentUserProfile,
     myId: state.auth.id,
     authIsFetching: state.auth.isFetching,
+    status: state.profilePage.status,
+
 });
 
 export default compose(
     connect(mapStateToProps, {
         setIsFetching,
         getUserProfile,
+        getUserStatus,
+        updateStatus,
     }),
     withRouter,
     withAuthRedirect,

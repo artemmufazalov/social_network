@@ -35,11 +35,52 @@
     padding: 5px;
     display: grid;
     grid-template-areas:
+    "name name"
+    "status status"
     "props values"
     "contacts contacts";
     grid-template-columns: 80px 1fr;
     grid-gap: 5px;
     background-color: white;
+}
+
+.name {
+    grid-area: name;
+    margin-left: 15px;
+    padding-left: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.status {
+    grid-area: status;
+    margin-left: 15px;
+    padding: 0 0 5px 5px;
+    border-bottom: lightblue 1px solid;
+}
+.statusText {
+    width: 100%;
+    margin: 5px 10px 0 0;
+    padding: 0 0 0 0;
+    border: lightblue 0 solid;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+.statusBox {
+    width: 100%;
+    margin: 5px 10px 0 0;
+    padding: 0 0 0 0;
+    border: lightblue 0 solid;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.status input::-webkit-input-placeholder {
+    font-size: 12px;
 }
 
 .infoItem {

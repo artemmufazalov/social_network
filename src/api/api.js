@@ -37,4 +37,17 @@ export const AuthAPI = {
     },
 };
 
+export const ProfileAPI = {
+    getStatus(userId) {
+        return axiosInstance.get(`profile/status/${userId}`)
+            .then(response => response.data);
+    },
+    updateStatus(status) {
+        return axiosInstance.put(`profile/status`, {
+            status: status
+        })
+            .then(response => response.data);
+    }
+}
+
 
