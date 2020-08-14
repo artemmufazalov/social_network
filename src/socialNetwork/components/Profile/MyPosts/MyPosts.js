@@ -19,9 +19,11 @@ const MyPosts = (props) => {
                              : props.profile.photos.small}
             />
 
-            <header className={s.header}>
-                Posts
-            </header>
+            {!props.posts ? null :
+                <header className={s.header}>
+                    Posts
+                </header>
+            }
 
             <div>
                 {!props.profile ? null
