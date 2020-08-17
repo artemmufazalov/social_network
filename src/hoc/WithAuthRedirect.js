@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 
 let mapStateToPropsForRedirect = (state) => ({
     isAuth: state.auth.isAuth,
+    profile: state.profilePage.profile,
 });
 
 export const withAuthRedirect = (Component) => {
@@ -11,7 +12,11 @@ export const withAuthRedirect = (Component) => {
     class RedirectComponent extends React.Component {
         render() {
             if (!this.props.isAuth) {
-                return <Redirect to={`/login/${Component.name}`}/>;
+                if (Component.name === "ProfileContainer" && this.props.profile) {
+                    return <Redirect to={`/login/${Component.name}/${this.props.profile.userId}`}/>;
+                } else {
+                    return <Redirect to={`/login/${Component.name}`}/>;
+                }
             }
 
             return <Component {...this.props}/>

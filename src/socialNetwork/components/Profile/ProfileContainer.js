@@ -5,7 +5,7 @@ import {
     addPost,
     getUserProfile,
     getUserStatus,
-    setIsFetching,
+    setIsFetching, setUserProfile,
     updateStatus
 } from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
@@ -16,15 +16,45 @@ import {compose} from "redux";
 class ProfileContainer extends React.Component {
 
     componentDidMount() {
-        this.props.setIsFetching(true);
         let userId = this.props.match.params.userId;
+
+        this.props.setIsFetching(true);
         if (!userId || userId === this.props.myId) {
-            this.props.setIsFetching(false);
             userId = this.props.myId;
+            this.props.setUserProfile(this.props.myProfile);
+            this.props.setIsFetching(false);
         } else {
             this.props.getUserProfile(userId);
         }
         this.props.getUserStatus(userId);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        let userId = this.props.match.params.userId;
+
+        if (!prevProps.myProfile && (userId == this.props.myId || !userId)) {
+            this.props.setUserProfile(this.props.myProfile);
+        }
+
+        if (this.props.profile) {
+            if (!(!prevProps.match.params.userId && !this.props.match.params.userId)) {
+                if (!prevProps.match.params.userId && this.props.match.params.userId == this.props.myId) {
+                } else {
+                    if (userId != this.props.profile.userId) {
+                        this.props.setIsFetching(true);
+                        if (!userId || userId === this.props.myId) {
+                            userId = this.props.myId;
+                            this.props.setUserProfile(this.props.myProfile);
+                            this.props.setIsFetching(false);
+                        } else {
+                            this.props.getUserProfile(userId);
+                        }
+                        this.props.getUserStatus(userId);
+
+                    }
+                }
+            }
+        }
     }
 
     render() {
@@ -32,29 +62,14 @@ class ProfileContainer extends React.Component {
         return (
             <>
                 {(this.props.profileIsFetching || this.props.authIsFetching) ? <Preloader/>
-                    : (isMyProfile) ?
-                        <Profile profile={this.props.myProfile}
-                                 status={this.props.status}
-                                 updateStatus={this.props.updateStatus}
-                                 isMyProfile={isMyProfile}
+                    : <Profile profile={this.props.profile}
+                               status={this.props.status}
+                               updateStatus={this.props.updateStatus}
+                               isMyProfile={isMyProfile}
 
-                                 newPostData={this.props.newPostData}
-                                 posts={this.props.posts}
-                                 addPost={this.props.addPost}
-                                 updateNewPostText={this.props.updateNewPostText}
-
-                        />
-                        :
-                        <Profile profile={this.props.profile}
-                                 status={this.props.status}
-                                 updateStatus={this.props.updateStatus}
-                                 isMyProfile={isMyProfile}
-
-                                 newPostData={this.props.newPostData}
-                                 posts={this.props.posts}
-                                 addPost={this.props.addPost}
-                                 updateNewPostText={this.props.updateNewPostText}
-                        />}
+                               newPostData={this.props.newPostData}
+                               posts={this.props.posts}
+                               addPost={this.props.addPost}/>}
 
             </>
         );
@@ -76,6 +91,7 @@ export default compose(
     connect(mapStateToProps, {
         setIsFetching,
         getUserProfile,
+        setUserProfile,
         getUserStatus,
         updateStatus,
         addPost,

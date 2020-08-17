@@ -32,7 +32,11 @@ const LoginPage = (props) => {
     if (props.isAuth) {
         switch (props.match.params.componentName) {
             case "ProfileContainer":
-                return <Redirect to={"/profile"}/>
+                if (!props.match.params.userId) {
+                    return <Redirect to={`/profile/`}/>;
+                } else {
+                    return <Redirect to={`/profile/${props.match.params.userId}`}/>;
+                }
             case "Messages":
                 return <Redirect to={"/messages"}/>
             case "UsersContainer":
