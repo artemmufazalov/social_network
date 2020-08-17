@@ -1,17 +1,39 @@
 import React from "react";
 import s from './NewPost.module.css';
+import {Field, reduxForm} from "redux-form";
+
+const NewPostForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className={s.newPostBody}>
+
+            <div>
+                <img src={props.photo} className={s.logo}
+                     alt="profileLogo"/>
+            </div>
+
+            <div className={s.textArea}>
+                <Field component={"textarea"}
+                       rows="5" className={s.inputArea}
+                       name={"newPostBody"}
+                       placeholder={"Write something"}/>
+            </div>
+
+            <footer className={s.footer}>
+                <button className={s.postButton}>
+                    Post
+                </button>
+            </footer>
+
+        </form>
+    );
+}
+
+const NewPostReduxForm = reduxForm({form: "newPostForm"})(NewPostForm);
 
 const NewPost = (props) => {
 
-    let newPostTextArea = React.createRef();
-
-    function addNewPost() {
-        props.addPost();
-    }
-
-    let onPostChange = () => {
-        let text = newPostTextArea.current.value;
-        props.updateNewPostText(text);
+    let onAddNewPost = (values) => {
+        props.addPost(values.newPostBody);
     }
 
     return (
@@ -19,29 +41,9 @@ const NewPost = (props) => {
             <header className={s.header}>
                 New Post
             </header>
-
-            <div className={s.newPostBody}>
-
-                <div>
-                    <img src={props.photo} className={s.logo}
-                         alt="profileLogo"/>
-                </div>
-
-                <div className={s.textArea}>
-                    <textarea rows="5" className={s.inputArea}
-                              ref={newPostTextArea}
-                              value={props.newPostData.text}
-                              onChange={onPostChange}/>
-                </div>
-
-
-                <footer className={s.footer}>
-                    <button onClick={addNewPost} className={s.postButton}>Post
-                    </button>
-                </footer>
-
-            </div>
-
+            <NewPostReduxForm
+                photo={props.photo}
+                onSubmit={onAddNewPost}/>
         </div>
 
     );

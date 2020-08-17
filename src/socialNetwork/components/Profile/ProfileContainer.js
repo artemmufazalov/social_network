@@ -6,7 +6,6 @@ import {
     getUserProfile,
     getUserStatus,
     setIsFetching,
-    updateNewPostText,
     updateStatus
 } from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
@@ -80,7 +79,6 @@ export default compose(
         getUserStatus,
         updateStatus,
         addPost,
-        updateNewPostText
     }),
     withRouter,
     withAuthRedirect,

@@ -2,7 +2,6 @@ import {getDate} from "./timeFunctions";
 import {ProfileAPI, UserAPI} from "../api/api";
 
 const ADD_POST = "ADD_POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const SET_STATUS = "SET_STATUS";
@@ -27,9 +26,6 @@ let initialState = {
             time: "29.06.2020",
             likesCount: 0,
         }],
-    newPost: {
-        text: ""
-    },
     profile: null,
     profileIsFetching: true,
     status: "",
@@ -45,7 +41,7 @@ export const profileReducer = (state = initialState, action) => {
             let postDate = getDate();
             let newPost = {
                 id: postId,
-                text: state.newPost.text,
+                text: action.newPostBody,
                 time: postDate,
                 likesCount: initialLikesCount,
             };
@@ -53,21 +49,6 @@ export const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: [newPost, ...state.posts],
-                newPost: {
-                    ...state.newPost,
-                    text: "",
-                },
-            };
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            //{newText:""}
-
-            return {
-                ...state,
-                newPost: {
-                    ...state.newPost,
-                    text: action.newText,
-                },
             };
         }
         case SET_USER_PROFILE:
@@ -90,10 +71,8 @@ export const profileReducer = (state = initialState, action) => {
     }
 }
 
-export const addPost = () => ({type: ADD_POST});
-
-export const updateNewPostText = (text) =>
-    ({type: UPDATE_NEW_POST_TEXT, newText: text});
+export const addPost = (newPostBody) =>
+    ({type: ADD_POST, newPostBody});
 
 export const setUserProfile = (profile) =>
     ({type: SET_USER_PROFILE, profile});

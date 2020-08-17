@@ -1,7 +1,6 @@
 import {getTime} from "./timeFunctions";
 
 const SEND_NEW_MESSAGE = "SEND_NEW_MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE_NEW_MESSAGE_TEXT";
 
 let initialState = {
     dialogsData: [
@@ -76,9 +75,6 @@ let initialState = {
             messages: ['Hey', 'Check my new workout video']
         }
     ],
-    newMessageData: {
-        text: "",
-    },
 };
 
 export const messagesReducer = (state = initialState, action) => {
@@ -95,32 +91,13 @@ export const messagesReducer = (state = initialState, action) => {
                 time: time,
                 from: from,
                 to: to,
-                message: state.newMessageData.text,
+                message: action.newMessageBody,
             }
-
-            //firstly we get dialogsData from state, then override them with the new data below
             stateCopy = {
                 ...state,
                 dialogsData: [...state.dialogsData],
-                newMessageData: {...state.newMessageData},
             };
-
             stateCopy.dialogsData[0].messages.push(newMessage);
-            stateCopy.newMessageData.text = "";
-            return stateCopy;
-        }
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            //{text: ,}
-
-            stateCopy = {
-                ...state,
-                newMessageData: {
-                    ...state.newMessageData,
-                    text: action.text,
-                },
-            };
-
-            //stateCopy.newMessageData.text = action.text;
             return stateCopy;
         }
         default:
@@ -128,8 +105,6 @@ export const messagesReducer = (state = initialState, action) => {
     }
 }
 
-export const sendNewMessage = (from, to) =>
-    ({type: SEND_NEW_MESSAGE, from: from, to: to})
+export const sendNewMessage = (from, to, newMessageBody) =>
+    ({type: SEND_NEW_MESSAGE, from: from, to: to, newMessageBody})
 
-export const updateNewMessageText = (text) =>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, text: text,})

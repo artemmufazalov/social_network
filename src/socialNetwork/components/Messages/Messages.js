@@ -2,19 +2,15 @@ import React from "react";
 import s from "./Messages.module.css";
 import {MessagesParser} from "./Message";
 import DialogItem from "./Dialog";
+import {Field, reduxForm} from "redux-form";
 
 const Messages = (props) => {
 
-    let sendNewMessage = () => {
+    let addNewMessage = (values) =>{
         let from = "Me";
         let to = "John";
-        props.sendNewMessage(from, to);
+        props.sendNewMessage(from, to,values.newMessageBody);
     }
-    let updateNewMessageText = (event) => {
-        let text = event.target.value;
-        props.updateNewMessageText(text);
-    }
-
     return (
         <div className={s.mainContainer}>
             <div className={s.dialogsContainer}>
@@ -28,24 +24,36 @@ const Messages = (props) => {
                                                                                                key={m.id}/>)}
                 </div>
 
+                <AddMessageFormRedux
+                    state={props.state}
+                    onSubmit={addNewMessage}
+                />
 
-                <div className={s.newMessageBox}>
-                    <div className={s.newMessageTextArea}>
-                        <textarea rows="5"
-                                  value={props.state.messagesPage.newMessageData.text}
-                                  onChange={updateNewMessageText}
-                                  placeholder="Enter your message">
-                        </textarea>
-                    </div>
-                    <div className={s.buttonBox}>
-                        <button className={s.sendButton} onClick={sendNewMessage}>
-                            Send
-                        </button>
-                    </div>
-                </div>
             </div>
 
         </div>
     );
 }
+
+const NewMessageForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}
+              className={s.newMessageBox}>
+            <div className={s.newMessageTextArea}>
+                <Field component={"textarea"}
+                       name={"newMessageBody"}
+                       placeholder="Enter your message"
+                       rows="5"/>
+            </div>
+            <div className={s.buttonBox}>
+                <button className={s.sendButton}>
+                    Send
+                </button>
+            </div>
+        </form>
+    );
+};
+
+const AddMessageFormRedux = reduxForm({form:"addNewMessageForm"})(NewMessageForm);
+
 export default Messages;
