@@ -11,17 +11,25 @@ const LoginForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             <div>
                 <Field component={Input} name={"login"} type="text" placeholder={"login"}
-                       validate={[required]}/>
+                       validate={[required]} className={styles.formItem}/>
             </div>
+            <div className={styles.break}></div>
             <div>
                 <Field component={Input} name={"password"} type="text" placeholder={"password"}
-                       validate={[required]}/>
+                       validate={[required]} className={styles.formItem}/>
             </div>
-            <div>
-                <Field component={Input} name={"rememberMe"} type="checkbox"/> remember me
+            <div className={styles.break}></div>
+            <div className={styles.rememberMeBlock + " " + styles.formItem}>
+                <span className={styles.rememberMeItem}>
+                    <Field component={Input} name={"rememberMe"} type="checkbox"/>
+                </span>
+                <span className={styles.rememberMeItem}>
+                           remember me
+                </span>
             </div>
+            <div className={styles.break}></div>
             <div>
-                <button>Login</button>
+                <button className={styles.submitButton}>Login</button>
             </div>
         </form>
     );
@@ -51,9 +59,13 @@ const LoginPage = (props) => {
         }
     }
     return (
-        <div>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
+        <div className={styles.loginBlock}>
+            <div className={styles.loginTop}>
+                <h2>Please login to continue</h2>
+            </div>
+            <div className={styles.formWrapper}>
+                <LoginReduxForm onSubmit={onSubmit}/>
+            </div>
         </div>
     );
 

@@ -1,0 +1,48 @@
+.loginBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: aliceblue;
+}
+.break{
+    height: 30px;
+}
+.loginTop {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.formWrapper {
+    width: max-content;
+    padding: 45px 95px;
+    background-color: aliceblue;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.04204);
+    border-radius: 3px;
+}
+
+.formItem {
+    font-size: 16px;
+    height: 30px;
+    width: 300px;
+    margin-bottom: 5px;
+}
+
+.rememberMeItem {
+    margin-bottom: 0px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.submitButton {
+    text-transform: uppercase;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+    background-color: lightblue;
+    border: blue 1px solid;
+    height: 50px;
+
+}
