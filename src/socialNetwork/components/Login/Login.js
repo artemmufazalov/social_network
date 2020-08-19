@@ -31,6 +31,9 @@ const LoginForm = (props) => {
             <div>
                 <button className={styles.submitButton}>Login</button>
             </div>
+            {props.error && <div className={styles.error}>
+                {props.error}
+            </div>}
         </form>
     );
 }
