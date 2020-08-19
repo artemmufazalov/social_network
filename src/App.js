@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from "./socialNetwork/components/NavBar/NavBar";
 import Footer from "./socialNetwork/components/Footer/Footer";
-import {Route} from "react-router-dom";
+import {withRouter, Route} from "react-router-dom";
 import News from "./socialNetwork/components/News/News";
 import Music from "./socialNetwork/components/Music/Music";
 import Settings from "./socialNetwork/components/Settings/Settings";
@@ -12,38 +12,65 @@ import ProfileContainer from "./socialNetwork/components/Profile/ProfileContaine
 import HeaderContainer from "./socialNetwork/components/Header/HeaderContainer";
 import LoginPage from "./socialNetwork/components/Login/Login";
 import Logout from "./socialNetwork/components/Login/Logout";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/appReducer";
+import PreloaderCustom from "./socialNetwork/components/common/Preloader/PreloaderCustom";
 
-const App = () => {
-    return (
-        <div className="app-wrapper">
+class App extends React.Component {
 
-            <HeaderContainer/>
-            <NavBar/>
+    componentDidMount() {
+        this.props.initializeApp();
+    }
 
-            <div className="content">
+    render() {
+        if (!this.props.initialized){
+            return (
+                <div className="preloader-wrapper">
+                    <PreloaderCustom className={"preloader"}/>
+                </div>
+            );
+        }
+        else{
+            return (
+                <div className="app-wrapper">
 
-                <Route path="/" exact render={() => <div>MainPage</div>}/>
+                    <HeaderContainer/>
+                    <NavBar/>
 
-                <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                    <div className="content">
 
-                <Route path="/messages" render={() => <MessagesContainer/>}/>
+                        <Route path="/" exact render={() => <div>MainPage</div>}/>
 
-                <Route path="/news" render={() => <News/>}/>
+                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
 
-                <Route path="/music" render={() => <Music/>}/>
+                        <Route path="/messages" render={() => <MessagesContainer/>}/>
 
-                <Route path="/users" render={() => <UsersContainer/>}/>
+                        <Route path="/news" render={() => <News/>}/>
 
-                <Route path="/settings" render={() => <Settings/>}/>
+                        <Route path="/music" render={() => <Music/>}/>
 
-                <Route path="/login/:componentName?/:userId?" render={()=><LoginPage/>}/>
+                        <Route path="/users" render={() => <UsersContainer/>}/>
 
-                <Route path="/logout" render={()=><Logout/>}/>
-            </div>
+                        <Route path="/settings" render={() => <Settings/>}/>
 
-            <Footer/>
-        </div>
-    );
+                        <Route path="/login/:componentName?/:userId?" render={() => <LoginPage/>}/>
+
+                        <Route path="/logout" render={() => <Logout/>}/>
+                    </div>
+
+                    <Footer/>
+                </div>
+            );
+        }
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.app.initialized,
+})
+
+export default compose(
+    withRouter,
+    connect(mapStateToProps, {initializeApp,}))(App);
+

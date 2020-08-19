@@ -17,6 +17,19 @@
 .content{
     grid-area: content;
 }
+.preloader-wrapper{
+    width: 100vw;
+    height: 101vh;
+    background-color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.preloader{
+    height: 50%;
+    width: 50%;
+}
 
 
 

@@ -46,23 +46,22 @@ export const setCurrentUserProfile = (profile) =>
 export const setCurrentProfileIsFetching = (isFetching) =>
     ({type: SET_CURRENT_PROFILE_IS_FETCHING, isFetching});
 
-export const auth = () => {
-    return (dispatch) => {
-        AuthAPI.authMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, login, email} = data.data;
-                    dispatch(setAuthUserData(id, login, email, true));
-                    dispatch(setCurrentProfileIsFetching(true));
-                    UserAPI.getUserProfile(id)
-                        .then(data => {
-                            dispatch(setCurrentUserProfile(data));
-                            dispatch(setCurrentProfileIsFetching(false));
-                        })
-                }
-            });
-    }
+export const auth = () => (dispatch) => {
+    return AuthAPI.authMe()
+        .then(data => {
+            if (data.resultCode === 0) {
+                let {id, login, email} = data.data;
+                dispatch(setAuthUserData(id, login, email, true));
+                dispatch(setCurrentProfileIsFetching(true));
+                UserAPI.getUserProfile(id)
+                    .then(data => {
+                        dispatch(setCurrentUserProfile(data));
+                        dispatch(setCurrentProfileIsFetching(false));
+                    })
+            }
+        });
 }
+
 
 export const login = (email, password, rememberMe) => (dispatch) => {
     AuthAPI.login(email, password, rememberMe)
