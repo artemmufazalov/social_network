@@ -12,10 +12,24 @@ const Header = (props) => {
                 <img src={logo} className={s.logo} alt="icon"/>
             </NavLink>
 
+<span className={s.loginBlock}>
 
-            <span className={s.loginBlock}>
+
+            <span className={s.logInOut}>
+                {!props.isAuth ?
+                    <NavLink to={'/login'}>
+                        Login
+                    </NavLink>
+                    :
+                    <NavLink to={'/logout'}>
+                        Logout
+                    </NavLink>}
+            </span>
+
+
+            <span className={s.photoBlock}>
                 {props.isAuth ?
-                    <NavLink to={'/profile/' + props.userId} >
+                    <NavLink to={'/profile/' + props.userId}>
                         {(props.currentUserProfile != null) ?
                             <img src={props.currentUserProfile.photos.small != null ?
                                 props.currentUserProfile.photos.small
@@ -26,10 +40,11 @@ const Header = (props) => {
                             </span>
                         }
                     </NavLink>
-                    : <NavLink to={'/login'}>
-                        Login
-                    </NavLink>}
+                    :
+                    null}
             </span>
+
+    </span>
         </header>
     );
 };

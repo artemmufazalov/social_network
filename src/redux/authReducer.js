@@ -19,8 +19,7 @@ const authReducer = (state = initialState, action) => {
         case SET_AUTH_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true,
+                ...action.payload,
             };
         case SET_CURRENT_USER_PROFILE:
             return {
@@ -39,8 +38,8 @@ const authReducer = (state = initialState, action) => {
 
 export default authReducer;
 
-export const setAuthUserData = (id, login, email) =>
-    ({type: SET_AUTH_USER_DATA, data: {id, login, email}});
+export const setAuthUserData = (id, login, email, isAuth) =>
+    ({type: SET_AUTH_USER_DATA, payload: {id, login, email, isAuth}});
 export const setCurrentUserProfile = (profile) =>
     ({type: SET_CURRENT_USER_PROFILE, profile});
 export const setCurrentProfileIsFetching = (isFetching) =>
@@ -52,7 +51,7 @@ export const auth = () => {
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data;
-                    dispatch(setAuthUserData(id, login, email));
+                    dispatch(setAuthUserData(id, login, email, true));
                     dispatch(setCurrentProfileIsFetching(true));
                     UserAPI.getUserProfile(id)
                         .then(data => {
@@ -63,3 +62,28 @@ export const auth = () => {
             });
     }
 }
+
+export const login = (email, password, rememberMe) => (dispatch) => {
+    AuthAPI.login(email, password, rememberMe)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(auth());
+            }
+            else if (data.resultCode === 1) {
+                console.log(data.messages);
+            }
+            else if (data.resultCode ===10){
+                console.log("captcha");
+            }
+        });
+};
+export const logout = () => (dispatch) => {
+    AuthAPI.logout()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setAuthUserData(null, null, null, false));
+                dispatch(setCurrentUserProfile(null));
+            }
+        })
+
+};

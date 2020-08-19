@@ -11,6 +11,7 @@ import UsersContainer from "./socialNetwork/components/Users/UsersContainer";
 import ProfileContainer from "./socialNetwork/components/Profile/ProfileContainer";
 import HeaderContainer from "./socialNetwork/components/Header/HeaderContainer";
 import LoginPage from "./socialNetwork/components/Login/Login";
+import Logout from "./socialNetwork/components/Login/Logout";
 
 const App = () => {
     return (
@@ -37,6 +38,7 @@ const App = () => {
 
                 <Route path="/login/:componentName?/:userId?" render={()=><LoginPage/>}/>
 
+                <Route path="/logout" render={()=><Logout/>}/>
             </div>
 
             <Footer/>

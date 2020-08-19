@@ -28,7 +28,9 @@
     width: 300px;
     margin-bottom: 5px;
 }
-
+.rememberMeBlock{
+    margin-bottom: 10px;
+}
 .rememberMeItem {
     margin-bottom: 0px;
     display: inline-block;
@@ -44,5 +46,6 @@
     background-color: lightblue;
     border: blue 1px solid;
     height: 50px;
+    margin-bottom: 20px;
 
 }

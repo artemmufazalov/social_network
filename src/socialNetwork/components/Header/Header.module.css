@@ -9,11 +9,22 @@
 }
 
 .loginBlock {
+    display: grid;
+    grid-template-areas: "login photo";
+    grid-gap: 10px;
     float: right;
     margin-right: 15px;
     margin-top: 10px;
 }
-
+.logInOut{
+    grid-area: login;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.photoBlock{
+    grid-area: photo;
+}
 .loginBlock a {
     color: lightblue;
     text-decoration: none;
