@@ -1,81 +1,59 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import s from "./ProfileInfo.module.css";
 
-class ProfileStatus extends React.Component {
+const ProfileStatus = (props) => {
 
-    state = {
-        editMode: false,
-        status: this.props.status,
-        statusChanged: false,
-    }
+    const [editMode, setEditMode] = useState(false);
+    const [status, setStatus] = useState(props.status);
+    const [isStatusChanged, setStatusChanged] = useState(false);
 
-    activateEditMode = () => {
-        if (this.props.isMyProfile) {
-            this.setState({
-                editMode: true,
-            });
+    const activateEditMode = () => {
+        if (props.isMyProfile) {
+            setEditMode(true,);
         }
-    }
-    deactivateEditMode = () => {
-        this.setState({
-            editMode: false,
-        });
-        if (this.state.statusChanged) {
-            this.props.updateStatus(this.state.status);
+    };
+
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        if (isStatusChanged) {
+            props.updateStatus(status);
         }
-        this.setState({
-                statusChanged: false
-            }
-        )
+        setStatusChanged(false);
+    };
 
-    }
+    const onStatusChange = (e) => {
+        setStatus(e.currentTarget.value);
+        setStatusChanged(true);
+    };
 
-    onStatusChange = (e) => {
-        this.setState({
-            status: e.currentTarget.value,
-            statusChanged: true,
-        });
-    }
+    useEffect(() => {
+        setStatus(props.status);
+    }, [props.status]);
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.status!==this.props.status) {
-            this.setState({
-                status: this.props.status,
-            })
-            console.log("new status")
-        }
-        console.log("updated")
-    }
-
-    render() {
-        return (
-            <div>
-                {!this.state.editMode && this.props.status !== "" && this.props.status !== null ?
-                    <div>
-                        <div
-                            onDoubleClick={this.activateEditMode}
-                            className={s.statusText}>
-                            {this.props.status}
-                        </div>
-                    </div>
-                    : this.props.isMyProfile ?
-                        <div onBlur={this.deactivateEditMode}
-                             autoFocus={true}>
-                            <input
-                                onChange={this.onStatusChange}
-                                type="text"
-                                className={s.statusBox}
-                                value={this.state.status}
-                                placeholder={"change status"}/>
-                        </div>
-                        : null
-                }
+    return (
+        <div>
+            {!editMode && props.status !== "" && props.status !== null ?
                 <div>
-
+                    <div
+                        onDoubleClick={activateEditMode}
+                        className={s.statusText}>
+                        {props.status}
+                    </div>
                 </div>
-            </div>
-        );
-    }
+                : props.isMyProfile ?
+                    <div onBlur={deactivateEditMode}
+                         autoFocus={true}>
+                        <input
+                            onChange={onStatusChange}
+                            type="text"
+                            className={s.statusBox}
+                            value={status}
+                            placeholder={"change status"}/>
+                    </div>
+                    : <div></div>
+            }
+        </div>
+    );
 }
 
 export default ProfileStatus;
