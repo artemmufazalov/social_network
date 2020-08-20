@@ -72,7 +72,7 @@ export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetch
 export const setFollowingInProgress = (isFetching, userId) =>
     ({type: TOGGLE_FOLLOWING_IN_PROGRESS, isFetching, userId});
 
-export const getUsers = (pageSize, pageNumber) => {
+export const requestUsers = (pageSize, pageNumber) => {
     return (dispatch) => {
         dispatch(setIsFetching(true));
         //data.items {id:,name:,status:,photos{small:,large:},followed:}
