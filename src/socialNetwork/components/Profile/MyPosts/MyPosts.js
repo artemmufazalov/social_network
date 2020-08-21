@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import NewPost from "./Post/NewPost";
 import defaultPagePhoto from "../../../res/images/defaultPagePhoto.png"
 
-const MyPosts = (props) => {
+const MyPosts = React.memo(props => {
 
     return (
         <div className={s.newsFeed}>
@@ -33,6 +33,6 @@ const MyPosts = (props) => {
             </div>
         </div>
     );
-}
+});
 
 export default MyPosts;
