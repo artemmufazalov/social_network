@@ -6,8 +6,7 @@ export const getTime = () => {
     if (minutes < 10) {
         minutesString = "0" + minutes;
     }
-    let timeString = hours + "." + minutesString;
-    return timeString;
+    return hours + "." + minutesString;
 };
 
 export const getDate = () => {
@@ -23,6 +22,5 @@ export const getDate = () => {
     if (month < 10) {
         monthString = "0" + month;
     }
-    let dateString = dayString + "." + monthString + "." + year;
-    return dateString;
+    return dayString + "." + monthString + "." + year;
 };

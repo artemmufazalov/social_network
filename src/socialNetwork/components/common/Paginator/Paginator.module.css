@@ -1,0 +1,8 @@
+.selectedPage{
+    font-weight: bold;
+}
+.pageNumber{
+    cursor: pointer;
+    margin-right: 5px;
+    color: darkblue;
+}

@@ -1,12 +1,15 @@
 import {auth} from "./authReducer";
 
+//Action types
 const SET_INITIALIZED_SUCCESS = 'SET_INITIALIZED_SUCCESS';
 
+//Initial state
 let initialState = {
     initialized: false,
 }
 
-export const appReducer = (state = initialState, action) => {
+//Reducer
+const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_INITIALIZED_SUCCESS:
@@ -19,9 +22,13 @@ export const appReducer = (state = initialState, action) => {
     }
 }
 
+export default appReducer;
+
+//Action creators
 const setInitializedSuccess = () =>
     ({type: SET_INITIALIZED_SUCCESS});
 
+//Thunk creators
 export const initializeApp = () => (dispatch) => {
     let promise = dispatch(auth());
     Promise.all([promise]).then(() => {

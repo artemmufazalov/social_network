@@ -7,22 +7,35 @@ import styles from "./Login.module.css"
 import {required} from "../../../utils/validators/validators";
 import {login} from "../../../redux/authReducer";
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
-                <Field component={Input} name={"email"} type="text" placeholder={"email"}
-                       validate={[required]} className={styles.formItem}/>
+                <Field component={Input}
+                       name={"email"}
+                       placeholder={"Email"}
+                       type={"text"}
+                       validate={[required]}
+                       className={styles.formItem}
+                />
             </div>
             <div className={styles.break}></div>
             <div>
-                <Field component={Input} name={"password"} type="password" placeholder={"password"}
-                       validate={[required]} className={styles.formItem}/>
+                <Field component={Input}
+                       name={"password"}
+                       placeholder={"Password"}
+                       type={"password"}
+                       validate={[required]}
+                       className={styles.formItem}
+                />
             </div>
             <div className={styles.break}></div>
             <div className={styles.rememberMeBlock + " " + styles.formItem}>
                 <span className={styles.rememberMeItem}>
-                    <Field component={Input} name={"rememberMe"} type="checkbox"/>
+                    <Field component={Input}
+                           name={"rememberMe"}
+                           type={"checkbox"}
+                    />
                 </span>
                 <span className={styles.rememberMeItem}>
                            remember me
@@ -31,8 +44,8 @@ const LoginForm = (props) => {
             <div>
                 <button className={styles.submitButton}>Login</button>
             </div>
-            {props.error && <div className={styles.error}>
-                {props.error}
+            {error && <div className={styles.error}>
+                {error}
             </div>}
         </form>
     );
@@ -46,21 +59,9 @@ const LoginPage = (props) => {
     }
 
     if (props.isAuth) {
-        switch (props.match.params.componentName) {
-            case "ProfileContainer":
-                if (!props.match.params.userId) {
-                    return <Redirect to={`/profile/`}/>;
-                } else {
-                    return <Redirect to={`/profile/${props.match.params.userId}`}/>;
-                }
-            case "Messages":
-                return <Redirect to={"/messages"}/>
-            case "UsersContainer":
-                return <Redirect to={"/users"}/>
-            default:
-                return <Redirect to={"/"}/>;
-        }
+        return <Redirect to={`/profile/`}/>;
     }
+
     return (
         <div className={styles.loginBlock}>
             <div className={styles.loginTop}>

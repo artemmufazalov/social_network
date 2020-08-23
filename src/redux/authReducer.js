@@ -1,10 +1,12 @@
 import {AuthAPI, UserAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_AUTH_USER_DATA = "SET_AUTH_USER_DATA";
-const SET_CURRENT_USER_PROFILE = "SET_CURRENT_USER_PROFILE";
-const SET_CURRENT_PROFILE_IS_FETCHING = "SET_CURRENT_PROFILE_IS_FETCHING";
+//Action types
+const SET_AUTH_USER_DATA = "authReducer/SET_AUTH_USER_DATA";
+const SET_CURRENT_USER_PROFILE = "authReducer/SET_CURRENT_USER_PROFILE";
+const SET_CURRENT_PROFILE_IS_FETCHING = "authReducer/SET_CURRENT_PROFILE_IS_FETCHING";
 
+//Initial state
 let initialState = {
     id: null,
     login: null,
@@ -14,6 +16,7 @@ let initialState = {
     isFetching: true,
 }
 
+//Reducer
 const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
@@ -39,6 +42,7 @@ const authReducer = (state = initialState, action) => {
 
 export default authReducer;
 
+//Action Creators
 export const setAuthUserData = (id, login, email, isAuth) =>
     ({type: SET_AUTH_USER_DATA, payload: {id, login, email, isAuth}});
 export const setCurrentUserProfile = (profile) =>
@@ -46,42 +50,33 @@ export const setCurrentUserProfile = (profile) =>
 export const setCurrentProfileIsFetching = (isFetching) =>
     ({type: SET_CURRENT_PROFILE_IS_FETCHING, isFetching});
 
-export const auth = () => (dispatch) => {
-    return AuthAPI.authMe()
-        .then(data => {
-            if (data.resultCode === 0) {
-                let {id, login, email} = data.data;
-                dispatch(setAuthUserData(id, login, email, true));
-                dispatch(setCurrentProfileIsFetching(true));
-                UserAPI.getUserProfile(id)
-                    .then(data => {
-                        dispatch(setCurrentUserProfile(data));
-                        dispatch(setCurrentProfileIsFetching(false));
-                    })
-            }
-        });
-}
-
-
-export const login = (email, password, rememberMe) => (dispatch) => {
-    AuthAPI.login(email, password, rememberMe)
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(auth());
-            } else {
-                let message = data.messages.length > 0 ? data.messages[0] : "Some error";
-                dispatch(stopSubmit("login",
-                    {_error: message,}));
-            }
-        });
+//Thunk creators
+export const auth = () => async (dispatch) => {
+    let authData = await AuthAPI.authMe();
+    if (authData.resultCode === 0) {
+        let {id, login, email} = authData.data;
+        dispatch(setAuthUserData(id, login, email, true));
+        dispatch(setCurrentProfileIsFetching(true));
+        let userProfileData = await UserAPI.getUserProfile(id);
+        dispatch(setCurrentUserProfile(userProfileData));
+        dispatch(setCurrentProfileIsFetching(false));
+    }
 };
-export const logout = () => (dispatch) => {
-    AuthAPI.logout()
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setAuthUserData(null, null, null, false));
-                dispatch(setCurrentUserProfile(null));
-            }
-        })
 
+export const login = (email, password, rememberMe) => async (dispatch) => {
+    let data = await AuthAPI.login(email, password, rememberMe);
+    if (data.resultCode === 0) {
+        dispatch(auth());
+    } else {
+        let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+        dispatch(stopSubmit("login", {_error: message,}));
+    }
+};
+
+export const logout = () => async (dispatch) => {
+    let data = await AuthAPI.logout();
+    if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+        dispatch(setCurrentUserProfile(null));
+    }
 };

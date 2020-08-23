@@ -9,6 +9,9 @@ import vkLogo from "../../res/logos/vk.svg"
 import youtubeLogo from "../../res/logos/youtube.svg"
 import ProfileStatus from "./ProfileStatus.js"
 
+//TODO: make contacts a separate component
+//TODO: make a file with common values (such as websites logos or default profile photo)
+
 const ProfileInfo = (props) => {
     return (
         <div>

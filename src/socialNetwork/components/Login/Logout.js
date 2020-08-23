@@ -8,7 +8,7 @@ const Logout = (props) => {
 
     return (
         <div>
-            <Redirect to={"/"} />
+            <Redirect to={"/login"} />
         </div>
     );
 };

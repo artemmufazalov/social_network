@@ -1,7 +1,9 @@
-import {getTime} from "./timeFunctions";
+import {getTime} from "../utils/functions/timeFunctions";
 
-const SEND_NEW_MESSAGE = "SEND_NEW_MESSAGE";
+//Action types
+const SEND_NEW_MESSAGE = "messagesReducer/SEND_NEW_MESSAGE";
 
+//Initial state
 let initialState = {
     dialogsData: [
         {
@@ -77,20 +79,17 @@ let initialState = {
     ],
 };
 
-export const messagesReducer = (state = initialState, action) => {
+//Reducer
+const messagesReducer = (state = initialState, action) => {
     let stateCopy;
     switch (action.type) {
         case SEND_NEW_MESSAGE: {
-            //{from: ,to: ,}
             let id = state.dialogsData[0].messages[state.dialogsData[0].messages.length - 1].id + 1;
-            let time = getTime();
-            let to = action.to;
-            let from = action.from;
             let newMessage = {
                 id: id,
-                time: time,
-                from: from,
-                to: to,
+                time: getTime(),
+                from: action.from,
+                to: action.to,
                 message: action.newMessageBody,
             }
             stateCopy = {
@@ -105,6 +104,9 @@ export const messagesReducer = (state = initialState, action) => {
     }
 }
 
+export default messagesReducer;
+
+//Action creators
 export const sendNewMessage = (from, to, newMessageBody) =>
-    ({type: SEND_NEW_MESSAGE, from: from, to: to, newMessageBody})
+    ({type: SEND_NEW_MESSAGE, from, to, newMessageBody})
 
