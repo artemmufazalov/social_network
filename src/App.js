@@ -1,12 +1,10 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import NavBar from "./socialNetwork/components/NavBar/NavBar";
 import Footer from "./socialNetwork/components/Footer/Footer";
 import {withRouter, Route, BrowserRouter} from "react-router-dom";
 import News from "./socialNetwork/components/News/News";
-import Music from "./socialNetwork/components/Music/Music";
 import Settings from "./socialNetwork/components/Settings/Settings";
-import MessagesContainer from "./socialNetwork/components/Messages/MessagesContainer";
 import UsersContainer from "./socialNetwork/components/Users/UsersContainer";
 import ProfileContainer from "./socialNetwork/components/Profile/ProfileContainer";
 import HeaderContainer from "./socialNetwork/components/Header/HeaderContainer";
@@ -17,6 +15,10 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import PreloaderCustom from "./socialNetwork/components/common/Preloader/PreloaderCustom";
 import store from "./redux/reduxStore";
+
+
+const MessagesContainer = React.lazy(() => import('./socialNetwork/components/Messages/MessagesContainer'));
+const Music = React.lazy(() => import('./socialNetwork/components/Music/Music'));
 
 class App extends React.Component {
 
@@ -33,34 +35,38 @@ class App extends React.Component {
             );
         } else {
             return (
-                <div className="app-wrapper">
+                <Suspense fallback={<PreloaderCustom className={"preloader"}/>}>
 
-                    <HeaderContainer/>
-                    <NavBar/>
+                    <div className="app-wrapper">
 
-                    <div className="content">
+                        <HeaderContainer/>
+                        <NavBar/>
 
-                        <Route path="/" exact render={() => <div>MainPage</div>}/>
+                        <div className="content">
 
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                            <Route path="/" exact render={() => <div>MainPage</div>}/>
 
-                        <Route path="/messages" render={() => <MessagesContainer/>}/>
+                            <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
 
-                        <Route path="/news" render={() => <News/>}/>
+                            <Route path="/messages" render={() => <MessagesContainer/>}/>
 
-                        <Route path="/music" render={() => <Music/>}/>
+                            <Route path="/news" render={() => <News/>}/>
 
-                        <Route path="/users" render={() => <UsersContainer/>}/>
+                            <Route path="/music" render={() => <Music/>}/>
 
-                        <Route path="/settings" render={() => <Settings/>}/>
+                            <Route path="/users" render={() => <UsersContainer/>}/>
 
-                        <Route path="/login/" render={() => <LoginPage/>}/>
+                            <Route path="/settings" render={() => <Settings/>}/>
 
-                        <Route path="/logout" render={() => <Logout/>}/>
+                            <Route path="/login/" render={() => <LoginPage/>}/>
+
+                            <Route path="/logout" render={() => <Logout/>}/>
+                        </div>
+
+                        <Footer/>
                     </div>
 
-                    <Footer/>
-                </div>
+                </Suspense>
             );
         }
     }
