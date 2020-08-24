@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import NavBar from "./socialNetwork/components/NavBar/NavBar";
 import Footer from "./socialNetwork/components/Footer/Footer";
-import {withRouter, Route} from "react-router-dom";
+import {withRouter, Route, BrowserRouter} from "react-router-dom";
 import News from "./socialNetwork/components/News/News";
 import Music from "./socialNetwork/components/Music/Music";
 import Settings from "./socialNetwork/components/Settings/Settings";
@@ -12,10 +12,11 @@ import ProfileContainer from "./socialNetwork/components/Profile/ProfileContaine
 import HeaderContainer from "./socialNetwork/components/Header/HeaderContainer";
 import LoginPage from "./socialNetwork/components/Login/Login";
 import Logout from "./socialNetwork/components/Login/Logout";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import PreloaderCustom from "./socialNetwork/components/common/Preloader/PreloaderCustom";
+import store from "./redux/reduxStore";
 
 class App extends React.Component {
 
@@ -24,14 +25,13 @@ class App extends React.Component {
     }
 
     render() {
-        if (!this.props.initialized){
+        if (!this.props.initialized) {
             return (
                 <div className="preloader-wrapper">
                     <PreloaderCustom className={"preloader"}/>
                 </div>
             );
-        }
-        else{
+        } else {
             return (
                 <div className="app-wrapper">
 
@@ -70,7 +70,19 @@ const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
 })
 
-export default compose(
+let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp,}))(App);
+
+const SocialNetworkApp = (props) => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </BrowserRouter>
+    );
+}
+
+export default SocialNetworkApp;
 
