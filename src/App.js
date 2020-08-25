@@ -2,7 +2,7 @@ import React, {Suspense} from 'react';
 import './App.css';
 import NavBar from "./socialNetwork/components/NavBar/NavBar";
 import Footer from "./socialNetwork/components/Footer/Footer";
-import {withRouter, Route, BrowserRouter} from "react-router-dom";
+import {withRouter, Route, HashRouter} from "react-router-dom";
 import News from "./socialNetwork/components/News/News";
 import Settings from "./socialNetwork/components/Settings/Settings";
 import UsersContainer from "./socialNetwork/components/Users/UsersContainer";
@@ -15,7 +15,7 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/appReducer";
 import PreloaderCustom from "./socialNetwork/components/common/Preloader/PreloaderCustom";
 import store from "./redux/reduxStore";
-
+import Preloader from "./socialNetwork/components/common/Preloader/Preloader";
 
 const MessagesContainer = React.lazy(() => import('./socialNetwork/components/Messages/MessagesContainer'));
 const Music = React.lazy(() => import('./socialNetwork/components/Music/Music'));
@@ -35,14 +35,14 @@ class App extends React.Component {
             );
         } else {
             return (
-                <Suspense fallback={<PreloaderCustom className={"preloader"}/>}>
+                <div className="app-wrapper">
 
-                    <div className="app-wrapper">
+                    <HeaderContainer/>
+                    <NavBar/>
 
-                        <HeaderContainer/>
-                        <NavBar/>
+                    <div className="content">
 
-                        <div className="content">
+                        <Suspense fallback={<Preloader/>}>
 
                             <Route path="/" exact render={() => <div>MainPage</div>}/>
 
@@ -61,12 +61,14 @@ class App extends React.Component {
                             <Route path="/login/" render={() => <LoginPage/>}/>
 
                             <Route path="/logout" render={() => <Logout/>}/>
-                        </div>
 
-                        <Footer/>
+                        </Suspense>
+
                     </div>
 
-                </Suspense>
+                    <Footer/>
+
+                </div>
             );
         }
     }
@@ -82,11 +84,11 @@ let AppContainer = compose(
 
 const SocialNetworkApp = (props) => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
