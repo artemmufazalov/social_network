@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/social_network/static/css/main.340f18e6.chunk.css",
+    "main.js": "/social_network/static/js/main.c5512fd6.chunk.js",
+    "main.js.map": "/social_network/static/js/main.c5512fd6.chunk.js.map",
+    "runtime-main.js": "/social_network/static/js/runtime-main.844ee7b0.js",
+    "runtime-main.js.map": "/social_network/static/js/runtime-main.844ee7b0.js.map",
+    "static/js/2.657acd12.chunk.js": "/social_network/static/js/2.657acd12.chunk.js",
+    "static/js/2.657acd12.chunk.js.map": "/social_network/static/js/2.657acd12.chunk.js.map",
+    "static/css/3.e642f3e8.chunk.css": "/social_network/static/css/3.e642f3e8.chunk.css",
+    "static/js/3.c882aa98.chunk.js": "/social_network/static/js/3.c882aa98.chunk.js",
+    "static/js/3.c882aa98.chunk.js.map": "/social_network/static/js/3.c882aa98.chunk.js.map",
+    "static/js/4.11492f18.chunk.js": "/social_network/static/js/4.11492f18.chunk.js",
+    "static/js/4.11492f18.chunk.js.map": "/social_network/static/js/4.11492f18.chunk.js.map",
+    "index.html": "/social_network/index.html",
+    "precache-manifest.c2c1c369d8f05d80190ae296592d8d49.js": "/social_network/precache-manifest.c2c1c369d8f05d80190ae296592d8d49.js",
+    "service-worker.js": "/social_network/service-worker.js",
+    "static/css/3.e642f3e8.chunk.css.map": "/social_network/static/css/3.e642f3e8.chunk.css.map",
+    "static/css/main.340f18e6.chunk.css.map": "/social_network/static/css/main.340f18e6.chunk.css.map",
+    "static/js/2.657acd12.chunk.js.LICENSE.txt": "/social_network/static/js/2.657acd12.chunk.js.LICENSE.txt",
+    "static/media/New Americana.mp3": "/social_network/static/media/New Americana.43003d11.mp3",
+    "static/media/No Time To Die.mp3": "/social_network/static/media/No Time To Die.a21d9043.mp3",
+    "static/media/Spinner-1.3s-200px.svg": "/social_network/static/media/Spinner-1.3s-200px.b4101e08.svg",
+    "static/media/facebook.svg": "/social_network/static/media/facebook.f8b97394.svg",
+    "static/media/github.svg": "/social_network/static/media/github.9329315b.svg",
+    "static/media/instagram.svg": "/social_network/static/media/instagram.759b34fb.svg",
+    "static/media/logo.svg": "/social_network/static/media/logo.5d5d9eef.svg",
+    "static/media/twitter.svg": "/social_network/static/media/twitter.b308fa8b.svg",
+    "static/media/vk.svg": "/social_network/static/media/vk.c57ac9d7.svg",
+    "static/media/youtube.svg": "/social_network/static/media/youtube.65f37534.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.844ee7b0.js",
+    "static/js/2.657acd12.chunk.js",
+    "static/css/main.340f18e6.chunk.css",
+    "static/js/main.c5512fd6.chunk.js"
+  ]
+}
