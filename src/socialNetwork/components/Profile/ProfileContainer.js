@@ -5,13 +5,15 @@ import {
     addPost,
     getUserProfile,
     getUserStatus,
-    setIsFetching, setUserProfile,
+    setIsFetching, setUserProfile, updateProfilePhoto,
     updateStatus
 } from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
 import {withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+
+//TODO: refactor class using hook
 
 class ProfileContainer extends React.Component {
 
@@ -66,6 +68,7 @@ class ProfileContainer extends React.Component {
                                status={this.props.status}
                                updateStatus={this.props.updateStatus}
                                isMyProfile={isMyProfile}
+                               updateProfilePhoto={this.props.updateProfilePhoto}
 
                                newPostData={this.props.newPostData}
                                posts={this.props.posts}
@@ -95,6 +98,7 @@ export default compose(
         getUserStatus,
         updateStatus,
         addPost,
+        updateProfilePhoto,
     }),
     withRouter,
     withAuthRedirect,

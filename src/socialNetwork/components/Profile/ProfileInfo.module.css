@@ -9,7 +9,8 @@
 .profileContainer {
     display: grid;
     grid-template-areas:
-    "profileLogo profileInfo";
+    "profileLogo profileInfo"
+    "changeInfo changeInfo";
     grid-template-columns: 2fr 10fr;
     background-color: white;
     grid-gap: 10px;
@@ -21,16 +22,11 @@
     grid-area: profileLogo;
     width: 90%;
     padding: 10px;
-    /*
-    background-color: aquamarine;
-    */
+    background-color: white;
 }
 
 .profileInfo {
     grid-area: profileInfo;
-    /*
-    background-color: blue;
-    */
     text-align: left;
     padding: 5px;
     display: grid;
@@ -60,6 +56,7 @@
     padding: 0 0 5px 5px;
     border-bottom: lightblue 1px solid;
 }
+
 .statusText {
     width: 100%;
     margin: 5px 10px 0 0;
@@ -69,6 +66,7 @@
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
+
 .statusBox {
     width: 100%;
     margin: 5px 10px 0 0;
@@ -108,4 +106,35 @@
     width: 40px;
     margin-right: 20px;
     border-radius: 40px;
+}
+
+.changeInfoWrapper {
+    grid-area: changeInfo;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.uploadPhotoWindow {
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    border-top: lightblue 1px solid;
+}
+
+.closeButton {
+    margin-left: 10px;
+}
+
+.setPhotoButton {
+}
+
+.wrongInput {
+    color: red;
+    font-size: 14px;
+    margin-left: 10px;
 }

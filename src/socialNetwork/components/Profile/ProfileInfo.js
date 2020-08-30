@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from "./ProfileInfo.module.css";
 import defaultProfileLogo from "../../res/images/defaultPagePhoto.png"
 import facebookLogo from "../../res/logos/facebook.svg"
@@ -13,16 +13,70 @@ import ProfileStatus from "./ProfileStatus.js"
 //TODO: make a file with common values (such as websites logos or default profile photo)
 
 const ProfileInfo = (props) => {
+    const [isPhotoUploadEnabled, setPhotoUploadEnabled] = useState(false);
+    const [wrongInput, setWrongInputMode] = useState(false);
+
+    let newProfilePhoto = null;
+
+    const activatePhotoUpload = () => {
+        if (props.isMyProfile) {
+            setPhotoUploadEnabled(true);
+        }
+    }
+
+    const deactivatePhotoUpload = () => {
+        setPhotoUploadEnabled(false);
+    }
+
+    const onMainPhotoSelected = (e) => {
+        newProfilePhoto = e.target.files[0];
+    }
+
+    const updateProfilePhoto = () => {
+        if (newProfilePhoto) {
+            props.updateProfilePhoto(newProfilePhoto);
+            setPhotoUploadEnabled(false);
+        } else {
+            setWrongInputMode(true);
+        }
+    }
+
     return (
         <div>
-
             {!props.profile ? null
                 :
                 <div className={s.profileContainer}>
+
                     <div>
                         <img src={!props.profile.photos.large ? defaultProfileLogo
                             : props.profile.photos.large}
-                             className={s.profileLogo} alt=""/>
+                             className={s.profileLogo} alt=""
+                             onDoubleClick={activatePhotoUpload}/>
+                    </div>
+
+                    <div className={s.changeInfoWrapper}>
+                        {isPhotoUploadEnabled ?
+                            <div className={s.uploadPhotoWindow}>
+                                <div>
+                                    <input type="file" onChange={onMainPhotoSelected}/>
+                                </div>
+                                <div>
+                                    <button className={s.setPhotoButton}
+                                            onClick={updateProfilePhoto}>
+                                        Save
+                                    </button>
+
+                                    <button className={s.closeButton} onClick={deactivatePhotoUpload}>x</button>
+
+                                    {wrongInput ?
+                                        <span className={s.wrongInput}>
+                                            Something Wrong
+                                        </span>
+                                        : null}
+
+                                </div>
+                            </div>
+                            : null}
                     </div>
 
                     <div className={s.profileInfo}>

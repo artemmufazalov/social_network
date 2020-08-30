@@ -5,6 +5,7 @@ import {stopSubmit} from "redux-form";
 const SET_AUTH_USER_DATA = "authReducer/SET_AUTH_USER_DATA";
 const SET_CURRENT_USER_PROFILE = "authReducer/SET_CURRENT_USER_PROFILE";
 const SET_CURRENT_PROFILE_IS_FETCHING = "authReducer/SET_CURRENT_PROFILE_IS_FETCHING";
+const SET_CURRENT_USER_PROFILE_PHOTO = "authReducer/SET_CURRENT_USER_PROFILE_PHOTO"
 
 //Initial state
 let initialState = {
@@ -35,6 +36,14 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             }
+        case SET_CURRENT_USER_PROFILE_PHOTO:
+            return {
+                ...state,
+                currentUserProfile: {
+                    ...state.currentUserProfile,
+                    photos: {...action.photos}
+                }
+            }
         default:
             return state;
     }
@@ -49,6 +58,9 @@ export const setCurrentUserProfile = (profile) =>
     ({type: SET_CURRENT_USER_PROFILE, profile});
 export const setCurrentProfileIsFetching = (isFetching) =>
     ({type: SET_CURRENT_PROFILE_IS_FETCHING, isFetching});
+export const setCurrentUserProfilePhotos = (photos) =>
+    ({type:SET_CURRENT_USER_PROFILE_PHOTO, photos})
+
 
 //Thunk creators
 export const auth = () => async (dispatch) => {

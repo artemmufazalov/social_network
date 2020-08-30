@@ -1,5 +1,6 @@
 import {getDate} from "../utils/functions/timeFunctions";
 import {ProfileAPI, UserAPI} from "../api/api";
+import {setCurrentUserProfilePhotos} from "./authReducer";
 
 //Action types
 const ADD_POST = "profileReducer/ADD_POST";
@@ -7,6 +8,7 @@ const SET_USER_PROFILE = "profileReducer/SET_USER_PROFILE";
 const TOGGLE_IS_FETCHING = "profileReducer/TOGGLE_IS_FETCHING";
 const SET_STATUS = "profileReducer/SET_STATUS";
 const DELETE_POST = "profileReducer/DELETE_POST";
+const SET_PROFILE_PHOTO = "profileReducer/SET_PROFILE_PHOTO";
 
 //Initial state
 let initialState = {
@@ -76,6 +78,14 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 status: action.status
             }
+        case SET_PROFILE_PHOTO:
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    photos: {...action.photos}
+                }
+            };
         default:
             return state;
     }
@@ -99,6 +109,9 @@ export const setIsFetching = (isFetching) =>
 export const setStatus = (status) =>
     ({type: SET_STATUS, status});
 
+const setProfilePhoto = (photos) =>
+    ({type: SET_PROFILE_PHOTO, photos})
+
 //Thunk creators
 export const getUserProfile = (userId) => async (dispatch) => {
     let data = await UserAPI.getUserProfile(userId);
@@ -112,8 +125,17 @@ export const getUserStatus = (userId) => async (dispatch) => {
 }
 
 export const updateStatus = (status) => async (dispatch) => {
-    let data = await ProfileAPI.updateStatus(status)
+    let data = await ProfileAPI.updateStatus(status);
     if (data.resultCode === 0) {
         dispatch(setStatus(status));
+    }
+}
+
+export const updateProfilePhoto = (photoFile) => async (dispatch) => {
+    debugger
+    let data = await ProfileAPI.updateProfilePhoto(photoFile);
+    if (data.resultCode === 0) {
+        dispatch(setProfilePhoto(data.data.photos));
+        dispatch(setCurrentUserProfilePhotos(data.data.photos))
     }
 }
