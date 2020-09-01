@@ -2,6 +2,7 @@ import React from "react";
 import s from "./ProfileInfo.module.css";
 import {Field, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../common/FormsControls/FormControls";
+import {required} from "../../../../utils/validators/validators";
 
 const firstLetterToUpperCase = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -28,7 +29,7 @@ const ProfileDataForm = (props) => {
                             </div>
                             <div className={s.forms}>
                                 <Field component={Input} placeholder={"Name"}
-                                       name={"fullName"} type={"text"} validate={[]}/>
+                                       name={"fullName"} type={"text"} validate={[required]}/>
                             </div>
                         </div>
 
@@ -38,7 +39,7 @@ const ProfileDataForm = (props) => {
                             </div>
                             <div className={s.forms}>
                                 <Field component={Textarea} placeholder={"About me"}
-                                       name={"aboutMe"} type={"text"} validate={[]}/>
+                                       name={"aboutMe"} type={"text"} validate={[required]}/>
                             </div>
                         </div>
 
@@ -47,7 +48,7 @@ const ProfileDataForm = (props) => {
                                 <b>Looking fo a job:</b>
                             </div>
 
-                            <div className={s.forms}>
+                            <div className={s.formsCheckBox}>
                                 <Field component={Input}
                                        name={"lookingForAJob"} type={"checkbox"} validate={[]}/>
                             </div>
@@ -60,7 +61,7 @@ const ProfileDataForm = (props) => {
                             </div>
                             <div className={s.forms}>
                                 <Field component={Textarea} placeholder={"Description"}
-                                       name={"lookingForAJobDescription"} type={"text"} validate={[]}/>
+                                       name={"lookingForAJobDescription"} type={"text"} validate={[required]}/>
                             </div>
                         </div>
 
@@ -76,7 +77,7 @@ const ProfileDataForm = (props) => {
                                         </div>
                                         <div className={s.forms}>
                                             <Field component={Input} placeholder={newKey}
-                                                   name={key} type={"text"} validate={[]}/>
+                                                   name={`contacts.${key}`} type={"text"} validate={[]}/>
                                         </div>
                                     </div>);
                                 }

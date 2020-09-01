@@ -70,6 +70,16 @@ const LoginPage = (props) => {
             <div className={styles.formWrapper}>
                 <LoginReduxForm onSubmit={onSubmit}/>
             </div>
+            <br/>
+            <div>
+                New on our website? Try this to taste it:
+            </div>
+            <div>
+                Email: free@samuraijs.com
+            </div>
+            <div>
+                Password: free
+            </div>
         </div>
     );
 

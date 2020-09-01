@@ -177,6 +177,17 @@
     grid-area: forms;
     text-align: left;
 }
+.formsCheckBox{
+    grid-area: forms;
+    text-align: left;
+}
+
+.forms input{
+    width: 70%;
+}
+.forms textarea {
+    width: 70%;
+}
 
 .submitButtonWrapper {
     grid-area: submitBtn;

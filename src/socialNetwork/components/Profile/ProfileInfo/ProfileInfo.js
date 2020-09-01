@@ -6,6 +6,8 @@ import Contact from "./Contact";
 import ProfileDataForm from "./ProfileDataForm";
 import PhotoUploadForm from "./PhotoUploadForm";
 
+//TODO: add extra fields with profile info (such as looking for a job (y/n) or looking for a job description
+
 const ProfileInfo = (props) => {
 
     const [editMode, setEditMode] = useState(false);
@@ -30,8 +32,8 @@ const ProfileInfo = (props) => {
     const deactivatePhotoUpload = () => {
         setProfilePhotoUploadEnabled(false);
     }
-    const onFormSubmit = (formData) => {
-        let resultCode = props.updateProfileData(formData, props.profile);
+    const onFormSubmit = async (formData) => {
+        let resultCode = await props.updateProfileData(formData);
         if (resultCode === 0) {
             deactivateEditMode();
         }
@@ -58,7 +60,8 @@ const ProfileInfo = (props) => {
 
                         {editMode ? <ProfileDataForm deactivateEditMode={deactivateEditMode}
                                                      profile={props.profile}
-                                                     onSubmit={onFormSubmit}/>
+                                                     onSubmit={onFormSubmit}
+                                                     initialValues={props.profile}/>
                             : null}
                     </div>
 
