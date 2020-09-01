@@ -5,7 +5,7 @@ import {
     addPost,
     getUserProfile,
     getUserStatus,
-    setIsFetching, setUserProfile, updateProfilePhoto,
+    setIsFetching, setUserProfile, updateProfileData, updateProfilePhoto,
     updateStatus
 } from "../../../redux/profileReducer";
 import Preloader from "../common/Preloader/Preloader";
@@ -69,6 +69,7 @@ class ProfileContainer extends React.Component {
                                updateStatus={this.props.updateStatus}
                                isMyProfile={isMyProfile}
                                updateProfilePhoto={this.props.updateProfilePhoto}
+                               updateProfileData={this.props.updateProfileData}
 
                                newPostData={this.props.newPostData}
                                posts={this.props.posts}
@@ -99,6 +100,7 @@ export default compose(
         updateStatus,
         addPost,
         updateProfilePhoto,
+        updateProfileData,
     }),
     withRouter,
     withAuthRedirect,

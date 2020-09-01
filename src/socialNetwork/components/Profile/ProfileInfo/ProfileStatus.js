@@ -50,8 +50,7 @@ const ProfileStatus = (props) => {
                             value={status}
                             placeholder={"change status"}/>
                     </div>
-                    : <div></div>
-            }
+                    : null}
         </div>
     );
 }

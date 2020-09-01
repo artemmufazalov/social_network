@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Users.module.css";
-import defaultPagePhoto from "../../res/images/defaultPagePhoto.png";
+import {defaultProfileLogo as defaultPagePhoto } from "../common/Defaults/defaultValues"
 import {NavLink} from "react-router-dom";
 import Paginator from "../common/Paginator/Paginator";
 

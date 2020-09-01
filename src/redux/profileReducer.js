@@ -1,6 +1,7 @@
 import {getDate} from "../utils/functions/timeFunctions";
 import {ProfileAPI, UserAPI} from "../api/api";
-import {setCurrentUserProfilePhotos} from "./authReducer";
+import {setCurrentUserProfile, setCurrentUserProfilePhotos} from "./authReducer";
+import {stopSubmit} from "redux-form";
 
 //Action types
 const ADD_POST = "profileReducer/ADD_POST";
@@ -9,6 +10,7 @@ const TOGGLE_IS_FETCHING = "profileReducer/TOGGLE_IS_FETCHING";
 const SET_STATUS = "profileReducer/SET_STATUS";
 const DELETE_POST = "profileReducer/DELETE_POST";
 const SET_PROFILE_PHOTO = "profileReducer/SET_PROFILE_PHOTO";
+const UPDATE_USER_PROFILE_DATA = "profileReducer/UPDATE_USER_PROFILE_DATA"
 
 //Initial state
 let initialState = {
@@ -68,6 +70,11 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: action.profile,
             };
+        case UPDATE_USER_PROFILE_DATA:
+            return {
+                ...state,
+                profile: action.newProfileData
+            }
         case TOGGLE_IS_FETCHING:
             return {
                 ...state,
@@ -103,6 +110,9 @@ export const deletePost = (postId) =>
 export const setUserProfile = (profile) =>
     ({type: SET_USER_PROFILE, profile});
 
+const updateUserProfileData = (newProfileData) =>
+    ({type: UPDATE_USER_PROFILE_DATA, newProfileData})
+
 export const setIsFetching = (isFetching) =>
     ({type: TOGGLE_IS_FETCHING, isFetching});
 
@@ -132,10 +142,51 @@ export const updateStatus = (status) => async (dispatch) => {
 }
 
 export const updateProfilePhoto = (photoFile) => async (dispatch) => {
-    debugger
     let data = await ProfileAPI.updateProfilePhoto(photoFile);
     if (data.resultCode === 0) {
         dispatch(setProfilePhoto(data.data.photos));
         dispatch(setCurrentUserProfilePhotos(data.data.photos))
     }
+}
+
+export const updateProfileData = (profileData, profile) => async (dispatch) => {
+
+    if (Object.keys(profileData).length===0) {
+        dispatch(stopSubmit("editProfileData", {_error: "Empty input form",}));
+        return 1;
+    } else {
+        let newProfileData = {
+            aboutMe: (profileData.aboutMe ? profileData.aboutMe : profile.aboutMe),
+            contacts: {
+                facebook: (profileData.facebook ? profileData.facebook : profile.contacts.facebook),
+                website: (profileData.website ? profileData.website : profile.contacts.website),
+                vk: (profileData.vk ? profileData.vk : profile.contacts.vk),
+                twitter: (profileData.twitter ? profileData.twitter : profile.contacts.twitter),
+                instagram: (profileData.instagram ? profileData.instagram : profile.contacts.instagram),
+                youtube: (profileData.youtube ? profileData.youtube : profile.contacts.youtube),
+                github: (profileData.github ? profileData.github : profile.contacts.github),
+                mainLink: (profileData.mainLink ? profileData.mainLink : profile.contacts.mainLink)
+            },
+            lookingForAJob: (profileData.lookingForAJob ? profileData.lookingForAJob : profile.lookingForAJob),
+            lookingForAJobDescription: (profileData.lookingForAJob ? profileData.lookingForAJob : profile.lookingForAJob),
+            fullName: (profileData.fullName ? profileData.fullName : profile.fullName),
+            userId: profile.id,
+            photos: {
+                small: profile.photos.small,
+                large: profile.photos.large,
+            }
+        }
+
+        let data = await ProfileAPI.updateProfileData(newProfileData);
+        if (data.resultCode === 0) {
+            dispatch(updateUserProfileData(newProfileData));
+            dispatch(setCurrentUserProfile(newProfileData));
+            return 0;
+        } else {
+            let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+            dispatch(stopSubmit("editProfileData", {_error: message,}));
+            return 1;
+        }
+    }
+
 }

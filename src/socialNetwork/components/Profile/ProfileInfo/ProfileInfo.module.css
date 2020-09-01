@@ -31,7 +31,7 @@
     padding: 5px;
     display: grid;
     grid-template-areas:
-    "name name"
+    "name editBtn"
     "status status"
     "props values"
     "contacts contacts";
@@ -48,6 +48,18 @@
     font-weight: bold;
     padding-bottom: 0;
     margin-bottom: 0;
+}
+
+.editButtonWrapper {
+    grid-area: editBtn;
+    text-align: right;
+}
+
+.editButtonWrapper button {
+    cursor: pointer;
+    color: gray;
+    background-color: white;
+    border: white 0 solid;
 }
 
 .status {
@@ -108,33 +120,91 @@
     border-radius: 40px;
 }
 
-.changeInfoWrapper {
+
+.changeInfoMainWrapper {
     grid-area: changeInfo;
     width: 100%;
-    display: flex;
-    justify-content: left;
-    align-items: flex-start;
+}
+
+.editFormWrapper {
+    border-top: lightblue 1px solid;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    display: grid;
+    grid-template-areas: "forms exitButton";
+    grid-template-columns: 9fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.exitButtonWrapper {
+    grid-area: exitButton;
+    text-align: right;
+}
+
+.exitButtonWrapper button {
+    cursor: pointer;
+    color: gray;
+    background-color: white;
+    border: white 0 solid;
+}
+
+.formsWrapper {
+    width: 100%;
+    grid-area: forms;
+    padding: 0;
     text-align: left;
 }
 
-.uploadPhotoWindow {
-    margin-right: 10px;
-    margin-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    border-top: lightblue 1px solid;
+.formsWrapper .wrapper {
+    display: grid;
+    grid-template-areas: "labels forms"
+    "submitBtn submitBtn";
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    grid-template-rows: max-content;
+    grid-row: auto;
+    padding: 5px;
 }
 
-.closeButton {
-    margin-left: 10px;
+.labels {
+    grid-area: labels;
+    text-align: right;
 }
 
-.setPhotoButton {
+.forms {
+    grid-area: forms;
+    text-align: left;
 }
 
-.wrongInput {
-    color: red;
-    font-size: 14px;
-    margin-left: 10px;
+.submitButtonWrapper {
+    grid-area: submitBtn;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.submitButtonWrapper button {
+    width: 150px;
+}
+
+.photoUploadWrapper{
+    text-align: center;
+}
+.photoUploadWrapper input{
+    margin-bottom: 10px;
+}
+.errorWrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    justify-self: center;
+}
+
+.error {
+    position: absolute;
+    color: firebrick;
+    font-size: 12px;
+    margin-bottom: 10px;
 }

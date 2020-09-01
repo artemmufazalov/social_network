@@ -1,8 +1,10 @@
 import React from "react";
 import s from './MyPosts.module.css';
-import Post from "./Post/Post";
-import NewPost from "./Post/NewPost";
+import Post from "./Post";
+import NewPost from "./NewPost";
 import defaultPagePhoto from "../../../res/images/defaultPagePhoto.png"
+
+//TODO: disable NewPost component for not my profile
 
 const MyPosts = React.memo(props => {
 

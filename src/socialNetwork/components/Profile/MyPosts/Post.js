@@ -1,7 +1,7 @@
 import React from "react";
 import s from './Post.module.css';
-import likeLogo from "../../../../res/images/likeLogo.png";
-import defaultPagePhoto from "../../../../res/images/defaultPagePhoto.png"
+import {defaultProfileLogo as defaultPagePhoto} from "../../common/Defaults/defaultValues";
+import {likeLogo} from "../../common/Defaults/defaultValues";
 
 const Post = (props) => {
     return (

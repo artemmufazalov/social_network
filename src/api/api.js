@@ -70,6 +70,11 @@ export const ProfileAPI = {
                 }
             })
             .then(response => response.data);
+    },
+
+    updateProfileData(profileData) {
+        return axiosInstance.put(`profile`, {...profileData})
+            .then(response => response.data);
     }
 }
 
