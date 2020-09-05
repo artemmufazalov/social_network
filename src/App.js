@@ -44,9 +44,9 @@ class App extends React.Component {
 
                         <Suspense fallback={<Preloader/>}>
 
-                            <Route path="/" exact render={() => <div>MainPage</div>}/>
+                            {/* <Route path="/" exact render={() => <div>MainPage</div>}/>*/}
 
-                            <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                            <Route exact path={["/profile/:userId?", "/"]} render={() => <ProfileContainer/>}/>
 
                             <Route path="/messages" render={() => <MessagesContainer/>}/>
 
@@ -82,7 +82,7 @@ let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp,}))(App);
 
-const SocialNetworkApp = (props) => {
+const SocialNetworkApp = () => {
     return (
         <HashRouter>
             <Provider store={store}>

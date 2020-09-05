@@ -50,6 +50,18 @@
     margin-bottom: 20px;
 
 }
+.captchaWrapper{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.captchaImage{
+    text-align: center;
+}
+.captchaImage img{
+    width: 200px;
+    height: 100px;
+    margin-bottom: 5px;
+}
 
 .error{
     position: absolute;

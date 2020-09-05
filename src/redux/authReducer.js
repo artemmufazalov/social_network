@@ -1,4 +1,4 @@
-import {AuthAPI, UserAPI} from "../api/api";
+import {AuthAPI, SecurityAPI, UserAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 //Action types
@@ -6,6 +6,7 @@ const SET_AUTH_USER_DATA = "authReducer/SET_AUTH_USER_DATA";
 const SET_CURRENT_USER_PROFILE = "authReducer/SET_CURRENT_USER_PROFILE";
 const SET_CURRENT_PROFILE_IS_FETCHING = "authReducer/SET_CURRENT_PROFILE_IS_FETCHING";
 const SET_CURRENT_USER_PROFILE_PHOTO = "authReducer/SET_CURRENT_USER_PROFILE_PHOTO"
+const SET_CAPTCHA_URL = "authReducer/SET_CAPTCHA_URL";
 
 //Initial state
 let initialState = {
@@ -15,6 +16,7 @@ let initialState = {
     isAuth: false,
     currentUserProfile: null,
     isFetching: true,
+    captchaURL: null,
 }
 
 //Reducer
@@ -44,6 +46,11 @@ const authReducer = (state = initialState, action) => {
                     photos: {...action.photos}
                 }
             }
+        case SET_CAPTCHA_URL:
+            return {
+                ...state,
+                captchaURL: action.captchaURL
+            }
         default:
             return state;
     }
@@ -59,7 +66,9 @@ export const setCurrentUserProfile = (profile) =>
 export const setCurrentProfileIsFetching = (isFetching) =>
     ({type: SET_CURRENT_PROFILE_IS_FETCHING, isFetching});
 export const setCurrentUserProfilePhotos = (photos) =>
-    ({type:SET_CURRENT_USER_PROFILE_PHOTO, photos})
+    ({type: SET_CURRENT_USER_PROFILE_PHOTO, photos});
+export const setCaptchaURL = (captchaURL) =>
+    ({type: SET_CAPTCHA_URL, captchaURL});
 
 
 //Thunk creators
@@ -75,13 +84,20 @@ export const auth = () => async (dispatch) => {
     }
 };
 
-export const login = (email, password, rememberMe) => async (dispatch) => {
-    let data = await AuthAPI.login(email, password, rememberMe);
+export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+    let data = await AuthAPI.login(email, password, rememberMe, captcha);
     if (data.resultCode === 0) {
         dispatch(auth());
+        dispatch(setCaptchaURL(null));
     } else {
-        let message = data.messages.length > 0 ? data.messages[0] : "Some error";
-        dispatch(stopSubmit("login", {_error: message,}));
+        if (data.resultCode === 10) {
+            dispatch(getCaptcha());
+            dispatch(stopSubmit("login", {_error: "You need to submit captcha",}));
+        }
+        else {
+            let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+            dispatch(stopSubmit("login", {_error: message,}));
+        }
     }
 };
 
@@ -92,3 +108,8 @@ export const logout = () => async (dispatch) => {
         dispatch(setCurrentUserProfile(null));
     }
 };
+
+export const getCaptcha = () => async (dispatch) => {
+    let data = await SecurityAPI.getCaptcha();
+    dispatch(setCaptchaURL(data.url));
+}

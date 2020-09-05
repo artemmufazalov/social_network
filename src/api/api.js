@@ -35,9 +35,9 @@ export const AuthAPI = {
         return axiosInstance.get('auth/me')
             .then(response => response.data);
     },
-    login(email, password, rememberMe = false) {
+    login(email, password, rememberMe = false, captcha) {
         return axiosInstance.post('auth/login', {
-            email, password, rememberMe,
+            email, password, rememberMe, captcha
         })
             .then(response => response.data);
     },
@@ -78,4 +78,10 @@ export const ProfileAPI = {
     }
 }
 
+export const SecurityAPI = {
+    getCaptcha() {
+        return axiosInstance.get(`security/get-captcha-url`)
+            .then(response => response.data);
+    }
+}
 

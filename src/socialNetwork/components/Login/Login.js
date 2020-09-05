@@ -7,7 +7,9 @@ import styles from "./Login.module.css"
 import {required} from "../../../utils/validators/validators";
 import {login} from "../../../redux/authReducer";
 
-const LoginForm = ({handleSubmit, error}) => {
+//TODO:disable submit button while submitting
+
+const LoginForm = ({handleSubmit, error, captchaURL}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -19,7 +21,7 @@ const LoginForm = ({handleSubmit, error}) => {
                        className={styles.formItem}
                 />
             </div>
-            <div className={styles.break}></div>
+            <div className={styles.break}/>
             <div>
                 <Field component={Input}
                        name={"password"}
@@ -29,7 +31,7 @@ const LoginForm = ({handleSubmit, error}) => {
                        className={styles.formItem}
                 />
             </div>
-            <div className={styles.break}></div>
+            <div className={styles.break}/>
             <div className={styles.rememberMeBlock + " " + styles.formItem}>
                 <span className={styles.rememberMeItem}>
                     <Field component={Input}
@@ -41,6 +43,23 @@ const LoginForm = ({handleSubmit, error}) => {
                            remember me
                 </span>
             </div>
+
+            {captchaURL && <div className={styles.captchaWrapper}>
+                <div className={styles.captchaImage}>
+                    <img src={captchaURL} alt=""/>
+                </div>
+                <div>
+                    <Field component={Input}
+                           name={"captcha"}
+                           placeholder={"Captcha"}
+                           type={"text"}
+                           className={styles.formItem}
+                           validate={[required]}
+                    />
+                </div>
+                <div className={styles.break}/>
+            </div>}
+
             <div>
                 <button className={styles.submitButton}>Login</button>
             </div>
@@ -55,7 +74,7 @@ const LoginReduxForm = reduxForm({form: "login",})(LoginForm);
 
 const LoginPage = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe);
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }
 
     if (props.isAuth) {
@@ -68,7 +87,7 @@ const LoginPage = (props) => {
                 <h2>Please login to continue</h2>
             </div>
             <div className={styles.formWrapper}>
-                <LoginReduxForm onSubmit={onSubmit}/>
+                <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
             </div>
             <br/>
             <div>
@@ -87,6 +106,7 @@ const LoginPage = (props) => {
 
 let mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
+    captchaURL: state.auth.captchaURL,
 });
 
 export default connect(mapStateToProps, {
