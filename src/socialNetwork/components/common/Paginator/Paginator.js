@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import styles from "./Paginator.module.css";
 
 const getValue = (number, currentPage, totalPagesCount) => {
@@ -49,7 +50,9 @@ const Paginator = ({totalCount, pageSize, currentPage, onPageChange, className})
             {numbers.map(number => {
                 return (
                     <span
-                        className={`${(currentPage === number) ? styles.selectedPage : null} ${styles.pageNumber}`}
+                        className={classNames(styles.pageNumber, {
+                            [styles.selectedPage]: currentPage === number
+                        })}
                         onClick={() => {
                             if (number !== "...") {
                                 onPageChange(number);
