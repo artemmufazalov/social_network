@@ -1,39 +1,39 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4a1578583ddb46f667b5a47ef4249cdc",
+    "revision": "34fcc86e6b29a710642dafcca19ecf56",
     "url": "/social_network/index.html"
   },
   {
-    "revision": "7ec4b3809db065d89fda",
+    "revision": "c933e62d6eb718758c46",
     "url": "/social_network/static/css/3.e642f3e8.chunk.css"
   },
   {
-    "revision": "101c925105cd08947fa5",
-    "url": "/social_network/static/css/main.340f18e6.chunk.css"
+    "revision": "7ef63f2952521ed96e8e",
+    "url": "/social_network/static/css/main.f1e35b39.chunk.css"
   },
   {
-    "revision": "b62f5ea0a8521d11584d",
-    "url": "/social_network/static/js/2.72eb1a35.chunk.js"
+    "revision": "2f50a6eaeaf62d52ec87",
+    "url": "/social_network/static/js/2.60f50f1c.chunk.js"
   },
   {
-    "revision": "c64c486544348f10a6d6c716950bc223",
-    "url": "/social_network/static/js/2.72eb1a35.chunk.js.LICENSE.txt"
+    "revision": "3453b8997016469371284a28c0e873e2",
+    "url": "/social_network/static/js/2.60f50f1c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7ec4b3809db065d89fda",
-    "url": "/social_network/static/js/3.7b7b4088.chunk.js"
+    "revision": "c933e62d6eb718758c46",
+    "url": "/social_network/static/js/3.2e14aa9e.chunk.js"
   },
   {
-    "revision": "687c181236cc19c8ea88",
-    "url": "/social_network/static/js/4.11492f18.chunk.js"
+    "revision": "1e7fd42b41ee6989a33f",
+    "url": "/social_network/static/js/4.fd1c6a0f.chunk.js"
   },
   {
-    "revision": "101c925105cd08947fa5",
-    "url": "/social_network/static/js/main.7ca2a1ac.chunk.js"
+    "revision": "7ef63f2952521ed96e8e",
+    "url": "/social_network/static/js/main.16cefa38.chunk.js"
   },
   {
-    "revision": "72d247a2a04ad0ed21f0",
-    "url": "/social_network/static/js/runtime-main.f4a59da3.js"
+    "revision": "a791e34c5a2b303be70e",
+    "url": "/social_network/static/js/runtime-main.302a681e.js"
   },
   {
     "revision": "43003d1185fec4bcf0a98c593552d1b8",
@@ -70,6 +70,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "c57ac9d778d69603ff39604575b3b3f1",
     "url": "/social_network/static/media/vk.c57ac9d7.svg"
+  },
+  {
+    "revision": "ff6e98099c5b72ac26d73433bf814c18",
+    "url": "/social_network/static/media/website.ff6e9809.png"
   },
   {
     "revision": "65f3753421853fd869afe206499c91a3",
