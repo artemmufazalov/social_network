@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useLayoutEffect} from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -47,7 +47,7 @@ const ProfileContainer = React.memo((props) => {
         addPost
     } = props;
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let userId = props.match.params.userId;
         setIsFetching(true);
         if (!userId || userId.toString() === myId.toString()) {
@@ -56,7 +56,6 @@ const ProfileContainer = React.memo((props) => {
             setIsFetching(false);
         } else {
             getUserProfile(userId);
-            setIsFetching(false);
         }
         getUserStatus(userId);
     }, [props.match.params.userId, myId, myProfile, setUserProfile, setIsFetching, getUserProfile, getUserStatus])
