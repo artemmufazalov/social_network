@@ -1,4 +1,4 @@
-export const getTime = () => {
+export const getTimeString = () => {
     let time = new Date();
     let hours = time.getHours();
     let minutes = time.getMinutes();
@@ -9,7 +9,7 @@ export const getTime = () => {
     return hours + "." + minutesString;
 };
 
-export const getDate = () => {
+export const getDateString = () => {
     let date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;
