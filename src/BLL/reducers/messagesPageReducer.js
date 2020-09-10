@@ -22,42 +22,42 @@ let initialState = {
                     time: "10.40",
                     from: "Me",
                     to: "John",
-                    message: 'Good morning!',
+                    message: 'Good morning! How are you feeling after what has been recently',
                 },
                 {
                     id: 1003,
                     time: "10.41",
                     from: "John",
                     to: "Me",
-                    message: 'How is your nothing?',
+                    message: 'I am good, thanks. Actually, even better than I have expected',
                 },
                 {
                     id: 1004,
                     time: "10.41",
                     from: "Me",
                     to: "John",
-                    message: 'I am good, thanks',
+                    message: 'So, will you join us in new journey tomorrow?',
                 },
                 {
                     id: 1005,
                     time: "10.42",
                     from: "John",
                     to: "Me",
-                    message: 'Are u gonna out today?'
+                    message: 'I need to think a little. I will inform you in the evening'
                 },
                 {
                     id: 1006,
                     time: "10.42",
                     from: "John",
                     to: "Me",
-                    message: 'about 6pm'
+                    message: 'around 8 pm, I suppose'
                 },
                 {
                     id: 1007,
                     time: "10.45",
                     from: "Me",
                     to: "John",
-                    message: 'Do not know yet. Maybe. '
+                    message: 'Well, write ASAP'
                 },
             ]
         },

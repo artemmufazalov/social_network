@@ -1,8 +1,9 @@
 .message {
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 5px;
     border: lightblue 1px solid;
     display: inline-grid;
+    border-radius: 20px 20px 20px 20px;
     grid-template-areas:
             "messageProps"
             "messageText";

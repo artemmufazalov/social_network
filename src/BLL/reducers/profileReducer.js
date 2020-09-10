@@ -20,19 +20,19 @@ let initialState = {
     posts: [
         {
             id: 101,
-            text: "some text",
+            text: "Hello World, I'm the first post",
             time: "29.06.2020",
             likesCount: 0,
         },
         {
             id: 102,
-            text: "some text",
+            text: "I really appreciate this app and the opportunity to write and store my thoughts and feelings here",
             time: "01.07.2020",
             likesCount: 3,
         },
         {
             id: 103,
-            text: "Hello World, I'm the first post",
+            text: "This text was supposed to have some motivational meaning but I am to busy with my codding staff",
             time: "03.07.2020",
             likesCount: 8,
         }
