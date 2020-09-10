@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -26,77 +26,65 @@ import {
     getIsCurrentUserProfileFetching
 } from "../../../BLL/selectors/authSelectors";
 
-//TODO: refactor class using hook
-//TODO: get rid of == adjusting all variables to string / numeric values
+const ProfileContainer = React.memo((props) => {
 
-class ProfileContainer extends React.Component {
+    const {
+        myId,
+        myProfile,
+        authIsFetching,
+        profileIsFetching,
+        profile,
+        status,
+        posts,
+        pageErrors,
+        setIsFetching,
+        setUserProfile,
+        getUserProfile,
+        getUserStatus,
+        updateStatus,
+        updateProfilePhoto,
+        updateProfileData,
+        addPost
+    } = props;
 
-    componentDidMount() {
-        let userId = this.props.match.params.userId;
-
-        this.props.setIsFetching(true);
-        if (!userId || userId === this.props.myId) {
-            userId = this.props.myId;
-            this.props.setUserProfile(this.props.myProfile);
-            this.props.setIsFetching(false);
+    useEffect(() => {
+        let userId = props.match.params.userId;
+        setIsFetching(true);
+        if (!userId || userId.toString() === myId.toString()) {
+            userId = myId;
+            setUserProfile(myProfile);
+            setIsFetching(false);
         } else {
-            this.props.getUserProfile(userId);
+            getUserProfile(userId);
+            setIsFetching(false);
         }
-        this.props.getUserStatus(userId);
-    }
+        getUserStatus(userId);
+    }, [props.match.params.userId, myId, myProfile, setUserProfile, setIsFetching, getUserProfile, getUserStatus])
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        let userId = this.props.match.params.userId;
+    let isMyProfile = (!props.match.params.userId || props.match.params.userId.toString() === myId.toString());
 
-        if (!prevProps.myProfile && (userId == this.props.myId || !userId)) {
-            this.props.setUserProfile(this.props.myProfile);
-        }
+    return (
+        <>
+            {(profileIsFetching || authIsFetching) ? <Preloader/>
+                : <Profile profile={profile}
+                           status={status}
+                           updateStatus={updateStatus}
+                           isMyProfile={isMyProfile}
+                           updateProfilePhoto={updateProfilePhoto}
+                           updateProfileData={updateProfileData}
 
-        if (this.props.profile) {
-            if (!(!prevProps.match.params.userId && !this.props.match.params.userId)) {
-                if (!prevProps.match.params.userId && this.props.match.params.userId == this.props.myId) {
-                } else {
-                    if (userId != this.props.profile.userId) {
-                        this.props.setIsFetching(true);
-                        if (!userId || userId === this.props.myId) {
-                            userId = this.props.myId;
-                            this.props.setUserProfile(this.props.myProfile);
-                            this.props.setIsFetching(false);
-                        } else {
-                            this.props.getUserProfile(userId);
-                        }
-                        this.props.getUserStatus(userId);
+                           posts={posts}
+                           addPost={addPost}
 
-                    }
-                }
+                           pageErrors={pageErrors}/>
             }
-        }
-    }
 
-    render() {
-        let isMyProfile = (this.props.match.params.userId == this.props.myId || !this.props.match.params.userId);
-        return (
-            <>
-                {(this.props.profileIsFetching || this.props.authIsFetching) ? <Preloader/>
-                    : <Profile profile={this.props.profile}
-                               status={this.props.status}
-                               updateStatus={this.props.updateStatus}
-                               isMyProfile={isMyProfile}
-                               updateProfilePhoto={this.props.updateProfilePhoto}
-                               updateProfileData={this.props.updateProfileData}
+        </>
+    );
 
-                               posts={this.props.posts}
-                               addPost={this.props.addPost}
+})
 
-                               pageErrors={this.props.pageErrors}/>
-                }
-
-            </>
-        );
-    }
-}
-
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
     profile: getProfile(state),
     profileIsFetching: getProfileIsFetching(state),
     status: getProfileStatus(state),
