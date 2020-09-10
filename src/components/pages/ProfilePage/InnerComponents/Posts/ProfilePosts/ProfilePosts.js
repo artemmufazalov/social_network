@@ -5,13 +5,11 @@ import PostItem from "../PostItem/PostItem";
 import NewPost from "../NewPost/NewPost";
 import defaultPagePhoto from "../../../../../../res/defaults/defaultPagePhoto.png"
 
-//TODO: disable NewPost component for not my profile
-
-const ProfilePosts = React.memo(props => {
+const ProfilePosts = React.memo((props) => {
 
     return (
         <div className={s.newsFeed}>
-
+            {props.isMyProfile &&
             <NewPost addPost={props.addPost}
                      updateNewPostText={(text) => {
                          props.updateNewPostText(text)
@@ -19,7 +17,7 @@ const ProfilePosts = React.memo(props => {
                      photo={!props.profile ? defaultPagePhoto
                          : !props.profile.photos.small ? defaultPagePhoto
                              : props.profile.photos.small}
-            />
+            />}
 
             {!props.posts ? null :
                 <header className={s.header}>

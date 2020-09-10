@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {compose} from "redux";
 
@@ -17,38 +17,46 @@ import {
     getUsers
 } from "../../../BLL/selectors/usersSelectors";
 
-//TODO: refactor to hook
+const UsersContainer = (props) => {
 
-class UsersContainer extends React.Component {
+    const {
+        isFetching,
+        users,
+        totalUsersCount,
+        pageSize,
+        currentPage,
+        isFollowingInProgress,
+        follow,
+        unfollow,
+        setCurrentPage,
+        requestUsers
+    } = props;
 
-    componentDidMount() {
-        this.props.requestUsers(this.props.pageSize, this.props.currentPage);
+    useEffect(() => {
+        requestUsers(pageSize, currentPage);
+    }, [requestUsers, pageSize, currentPage])
 
+    const onPageNumberClick = (page) => {
+        setCurrentPage(page);
+        requestUsers(pageSize, page);
     }
 
-    onPageNumberClick = (page) => {
-        this.props.setCurrentPage(page);
-        this.props.requestUsers(this.props.pageSize, page);
-    }
-
-    render() {
-        return (
-            <>
-                {this.props.isFetching ? <Preloader/>
-                    : <Users
-                        users={this.props.users}
-                        pageSize={this.props.pageSize}
-                        totalUsersCount={this.props.totalUsersCount}
-                        currentPage={this.props.currentPage}
-                        follow={this.props.follow}
-                        unfollow={this.props.unfollow}
-                        setCurrentPage={this.props.setCurrentPage}
-                        onPageNumberClick={this.onPageNumberClick}
-                        isFollowingInProgress={this.props.isFollowingInProgress}
-                    />}
-            </>
-        );
-    }
+    return (
+        <>
+            {isFetching ? <Preloader/>
+                : <Users
+                    users={users}
+                    pageSize={pageSize}
+                    totalUsersCount={totalUsersCount}
+                    currentPage={currentPage}
+                    follow={follow}
+                    unfollow={unfollow}
+                    setCurrentPage={setCurrentPage}
+                    onPageNumberClick={onPageNumberClick}
+                    isFollowingInProgress={isFollowingInProgress}
+                />}
+        </>
+    );
 }
 
 const mapStateToProps = (state) => {
